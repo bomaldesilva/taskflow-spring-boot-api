@@ -58,13 +58,14 @@ public class TaskService {
         task.setStatus(status);
         return taskRepository.save(task);
     }
-    public void deleteTask(Long id) {
+    public Task deleteTask(Long id) {
 
         if (!taskRepository.existsById(id)) {
             throw new TaskNotFoundException(id);
         }
 
         taskRepository.deleteById(id);
+        return null;
     }
     public Task updateStatus(
             Long id,
