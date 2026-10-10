@@ -5227,3 +5227,1265 @@ java.lang.IllegalStateException: ApplicationContext failure threshold (1) exceed
 2026-10-10T18:22:06.449+05:30  INFO 17275 --- [taskflow] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2026-10-10T18:22:06.450+05:30  INFO 17275 --- [taskflow] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
 2026-10-10T18:22:06.802+05:30  INFO 17275 --- [taskflow] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+2026-10-10T18:29:46.173+05:30  INFO 17906 --- [taskflow] [main] c.e.t.repository.TaskRepositoryTest      : Starting TaskRepositoryTest using Java 22.0.2 with PID 17906 (started by janidubomal in /Users/janidubomal/Downloads/taskflow)
+2026-10-10T18:29:46.174+05:30 DEBUG 17906 --- [taskflow] [main] c.e.t.repository.TaskRepositoryTest      : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-10-10T18:29:46.174+05:30  INFO 17906 --- [taskflow] [main] c.e.t.repository.TaskRepositoryTest      : The following 1 profile is active: "dev"
+2026-10-10T18:29:46.331+05:30  INFO 17906 --- [taskflow] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-10T18:29:46.351+05:30  INFO 17906 --- [taskflow] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 16 ms. Found 1 JPA repository interface.
+2026-10-10T18:29:46.378+05:30  INFO 17906 --- [taskflow] [main] beddedDataSourceBeanFactoryPostProcessor : Replacing 'dataSource' DataSource bean with embedded version
+2026-10-10T18:29:46.426+05:30  INFO 17906 --- [taskflow] [main] o.s.j.d.e.EmbeddedDatabaseFactory        : Starting embedded database: url='jdbc:h2:mem:72173d11-ab41-4f1d-aa7f-d1cfe48c1509;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false', username='sa'
+2026-10-10T18:29:46.550+05:30  INFO 17906 --- [taskflow] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-10-10T18:29:46.584+05:30  INFO 17906 --- [taskflow] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-10-10T18:29:46.773+05:30  INFO 17906 --- [taskflow] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-10T18:29:46.809+05:30  INFO 17906 --- [taskflow] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:72173d11-ab41-4f1d-aa7f-d1cfe48c1509]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: 72173D11-AB41-4F1D-AA7F-D1CFE48C1509/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-10T18:29:47.148+05:30  INFO 17906 --- [taskflow] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-10T18:29:47.162+05:30  INFO 17906 --- [taskflow] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T18:29:47.204+05:30  INFO 17906 --- [taskflow] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-10-10T18:29:47.287+05:30  INFO 17906 --- [taskflow] [main] c.e.t.repository.TaskRepositoryTest      : Started TaskRepositoryTest in 1.305 seconds (process running for 1.818)
+2026-10-10T18:29:47.872+05:30  INFO 17906 --- [taskflow] [main] org.testcontainers.images.PullPolicy     : Image pull policy will be performed by: DefaultPullPolicy()
+2026-10-10T18:29:47.873+05:30  INFO 17906 --- [taskflow] [main] o.t.utility.ImageNameSubstitutor         : Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+2026-10-10T18:29:47.878+05:30  INFO 17906 --- [taskflow] [main] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.5
+2026-10-10T18:29:47.992+05:30  INFO 17906 --- [taskflow] [main] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.UnixSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+2026-10-10T18:29:48.203+05:30  INFO 17906 --- [taskflow] [main] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Unix socket (unix:///var/run/docker.sock)
+2026-10-10T18:29:48.204+05:30  INFO 17906 --- [taskflow] [main] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+2026-10-10T18:29:48.215+05:30  INFO 17906 --- [taskflow] [main] org.testcontainers.DockerClientFactory   : Connected to docker: 
+  Server Version: 27.4.0
+  API Version: 1.47
+  Operating System: Docker Desktop
+  Total Memory: 3919 MB
+  Labels: 
+    com.docker.desktop.address=unix:///Users/janidubomal/Library/Containers/com.docker.docker/Data/docker-cli.sock
+2026-10-10T18:29:48.236+05:30  INFO 17906 --- [taskflow] [main] tc.testcontainers/ryuk:0.14.0            : Creating container for image: testcontainers/ryuk:0.14.0
+2026-10-10T18:29:48.509+05:30  INFO 17906 --- [taskflow] [main] tc.testcontainers/ryuk:0.14.0            : Container testcontainers/ryuk:0.14.0 is starting: 0f065beece7b6720ff69d852511dbfb3b1ee450c1ed931672461baba060d934b
+2026-10-10T18:29:48.945+05:30  INFO 17906 --- [taskflow] [main] tc.testcontainers/ryuk:0.14.0            : Container testcontainers/ryuk:0.14.0 started in PT0.709577S
+2026-10-10T18:29:48.955+05:30  INFO 17906 --- [taskflow] [main] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+2026-10-10T18:29:48.955+05:30  INFO 17906 --- [taskflow] [main] org.testcontainers.DockerClientFactory   : Checking the system...
+2026-10-10T18:29:48.956+05:30  INFO 17906 --- [taskflow] [main] org.testcontainers.DockerClientFactory   : ✔︎ Docker server version should be at least 1.6.0
+2026-10-10T18:29:48.956+05:30  INFO 17906 --- [taskflow] [main] tc.postgres:16-alpine                    : Creating container for image: postgres:16-alpine
+2026-10-10T18:29:48.991+05:30  INFO 17906 --- [taskflow] [main] tc.postgres:16-alpine                    : Container postgres:16-alpine is starting: b93c8407e6d49e6212e135b520c7c7b042aae2de922663f5c6c72811233d81a5
+2026-10-10T18:29:50.092+05:30  INFO 17906 --- [taskflow] [main] tc.postgres:16-alpine                    : Container postgres:16-alpine started in PT1.135628S
+2026-10-10T18:29:50.096+05:30  INFO 17906 --- [taskflow] [main] tc.postgres:16-alpine                    : Container is started (JDBC URL: jdbc:postgresql://localhost:53101/test?loggerLevel=OFF)
+2026-10-10T18:29:50.118+05:30  INFO 17906 --- [taskflow] [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.taskflow.integration.TaskRepositoryPostgresIntegrationTest]: TaskRepositoryPostgresIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-10T18:29:50.155+05:30  INFO 17906 --- [taskflow] [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.taskflow.TaskflowApplication for test class com.example.taskflow.integration.TaskRepositoryPostgresIntegrationTest
+2026-10-10T18:29:50.158+05:30  INFO 17906 --- [taskflow] [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.taskflow.integration.TaskRepositoryPostgresIntegrationTest]: TaskRepositoryPostgresIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-10T18:29:50.161+05:30  INFO 17906 --- [taskflow] [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.taskflow.TaskflowApplication for test class com.example.taskflow.integration.TaskRepositoryPostgresIntegrationTest
+2026-10-10T18:29:50.173+05:30  INFO 17906 --- [taskflow] [main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+2026-10-10T18:29:50.189+05:30  INFO 17906 --- [taskflow] [main] .i.TaskRepositoryPostgresIntegrationTest : Starting TaskRepositoryPostgresIntegrationTest using Java 22.0.2 with PID 17906 (started by janidubomal in /Users/janidubomal/Downloads/taskflow)
+2026-10-10T18:29:50.189+05:30 DEBUG 17906 --- [taskflow] [main] .i.TaskRepositoryPostgresIntegrationTest : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-10-10T18:29:50.189+05:30  INFO 17906 --- [taskflow] [main] .i.TaskRepositoryPostgresIntegrationTest : The following 1 profile is active: "dev"
+2026-10-10T18:29:50.444+05:30  INFO 17906 --- [taskflow] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-10T18:29:50.450+05:30  INFO 17906 --- [taskflow] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 3 ms. Found 1 JPA repository interface.
+2026-10-10T18:29:50.775+05:30  INFO 17906 --- [taskflow] [main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:53101/test?loggerLevel=OFF (PostgreSQL 16.15)
+2026-10-10T18:29:50.799+05:30  INFO 17906 --- [taskflow] [main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-10-10T18:29:50.800+05:30  INFO 17906 --- [taskflow] [main] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.006s)
+2026-10-10T18:29:50.808+05:30  INFO 17906 --- [taskflow] [main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-10-10T18:29:50.856+05:30  INFO 17906 --- [taskflow] [main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-10-10T18:29:50.865+05:30  INFO 17906 --- [taskflow] [main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - create tasks table"
+2026-10-10T18:29:50.885+05:30  INFO 17906 --- [taskflow] [main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "2 - add priority to tasks"
+2026-10-10T18:29:50.892+05:30  INFO 17906 --- [taskflow] [main] o.f.core.internal.command.DbMigrate      : Successfully applied 2 migrations to schema "public", now at version v2 (execution time 00:00.008s)
+2026-10-10T18:29:50.905+05:30  INFO 17906 --- [taskflow] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-10-10T18:29:50.915+05:30  INFO 17906 --- [taskflow] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-10T18:29:50.915+05:30  INFO 17906 --- [taskflow] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-10T18:29:50.930+05:30  INFO 17906 --- [taskflow] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5cb63d05
+2026-10-10T18:29:50.931+05:30  INFO 17906 --- [taskflow] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-10T18:29:50.942+05:30  INFO 17906 --- [taskflow] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:53101/test?loggerLevel=OFF]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 16.15
+	Default catalog/schema: test/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-10T18:29:50.973+05:30  INFO 17906 --- [taskflow] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-10T18:29:50.989+05:30  INFO 17906 --- [taskflow] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T18:29:51.102+05:30  WARN 17906 --- [taskflow] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-10-10T18:29:51.343+05:30  INFO 17906 --- [taskflow] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 4 endpoints beneath base path '/actuator'
+2026-10-10T18:29:51.372+05:30  INFO 17906 --- [taskflow] [main] .i.TaskRepositoryPostgresIntegrationTest : Started TaskRepositoryPostgresIntegrationTest in 1.2 seconds (process running for 5.904)
+2026-10-10T18:29:51.410+05:30  WARN 17906 --- [taskflow] [main] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-10-10T18:29:51.410+05:30  WARN 17906 --- [taskflow] [main] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-10-10T18:29:51.667+05:30  INFO 17906 --- [taskflow] [main] tc.postgres:16-alpine                    : Creating container for image: postgres:16-alpine
+2026-10-10T18:29:51.724+05:30  INFO 17906 --- [taskflow] [main] tc.postgres:16-alpine                    : Container postgres:16-alpine is starting: 8f9b744826798dec4202c89c2b562e8b6a05a4086eca8b9b8f9bfdf755400174
+2026-10-10T18:29:52.697+05:30  INFO 17906 --- [taskflow] [main] tc.postgres:16-alpine                    : Container postgres:16-alpine started in PT1.030544S
+2026-10-10T18:29:52.701+05:30  INFO 17906 --- [taskflow] [main] tc.postgres:16-alpine                    : Container is started (JDBC URL: jdbc:postgresql://localhost:53117/test?loggerLevel=OFF)
+2026-10-10T18:29:52.713+05:30  INFO 17906 --- [taskflow] [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.taskflow.integration.TaskApiIntegrationTest]: TaskApiIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-10T18:29:52.731+05:30  INFO 17906 --- [taskflow] [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.taskflow.TaskflowApplication for test class com.example.taskflow.integration.TaskApiIntegrationTest
+2026-10-10T18:29:52.735+05:30  INFO 17906 --- [taskflow] [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.taskflow.integration.TaskApiIntegrationTest]: TaskApiIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-10T18:29:52.739+05:30  INFO 17906 --- [taskflow] [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.taskflow.TaskflowApplication for test class com.example.taskflow.integration.TaskApiIntegrationTest
+2026-10-10T18:29:52.747+05:30  INFO 17906 --- [taskflow] [main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+2026-10-10T18:29:52.767+05:30  INFO 17906 --- [taskflow] [main] c.e.t.i.TaskApiIntegrationTest           : Starting TaskApiIntegrationTest using Java 22.0.2 with PID 17906 (started by janidubomal in /Users/janidubomal/Downloads/taskflow)
+2026-10-10T18:29:52.767+05:30 DEBUG 17906 --- [taskflow] [main] c.e.t.i.TaskApiIntegrationTest           : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-10-10T18:29:52.767+05:30  INFO 17906 --- [taskflow] [main] c.e.t.i.TaskApiIntegrationTest           : The following 1 profile is active: "dev"
+2026-10-10T18:29:52.883+05:30  INFO 17906 --- [taskflow] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-10T18:29:52.889+05:30  INFO 17906 --- [taskflow] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 1 JPA repository interface.
+2026-10-10T18:29:52.989+05:30  INFO 17906 --- [taskflow] [main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:53117/test?loggerLevel=OFF (PostgreSQL 16.15)
+2026-10-10T18:29:52.999+05:30  INFO 17906 --- [taskflow] [main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-10-10T18:29:53.000+05:30  INFO 17906 --- [taskflow] [main] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.002s)
+2026-10-10T18:29:53.006+05:30  INFO 17906 --- [taskflow] [main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-10-10T18:29:53.024+05:30  INFO 17906 --- [taskflow] [main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-10-10T18:29:53.027+05:30  INFO 17906 --- [taskflow] [main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - create tasks table"
+2026-10-10T18:29:53.038+05:30  INFO 17906 --- [taskflow] [main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "2 - add priority to tasks"
+2026-10-10T18:29:53.047+05:30  INFO 17906 --- [taskflow] [main] o.f.core.internal.command.DbMigrate      : Successfully applied 2 migrations to schema "public", now at version v2 (execution time 00:00.011s)
+2026-10-10T18:29:53.054+05:30  INFO 17906 --- [taskflow] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-10-10T18:29:53.073+05:30  INFO 17906 --- [taskflow] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-10T18:29:53.074+05:30  INFO 17906 --- [taskflow] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-10-10T18:29:53.079+05:30  INFO 17906 --- [taskflow] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@215512b9
+2026-10-10T18:29:53.079+05:30  INFO 17906 --- [taskflow] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2026-10-10T18:29:53.083+05:30  INFO 17906 --- [taskflow] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:53117/test?loggerLevel=OFF]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 16.15
+	Default catalog/schema: test/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-10T18:29:53.096+05:30  INFO 17906 --- [taskflow] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-10T18:29:53.104+05:30  INFO 17906 --- [taskflow] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T18:29:53.130+05:30  WARN 17906 --- [taskflow] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-10-10T18:29:53.203+05:30  INFO 17906 --- [taskflow] [main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-10-10T18:29:53.204+05:30  INFO 17906 --- [taskflow] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-10T18:29:53.204+05:30  INFO 17906 --- [taskflow] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 4 endpoints beneath base path '/actuator'
+2026-10-10T18:29:53.206+05:30  INFO 17906 --- [taskflow] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
+2026-10-10T18:29:53.223+05:30  INFO 17906 --- [taskflow] [main] c.e.t.i.TaskApiIntegrationTest           : Started TaskApiIntegrationTest in 0.476 seconds (process running for 7.755)
+2026-10-10T18:29:53.224+05:30  WARN 17906 --- [taskflow] [main] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-10-10T18:29:53.224+05:30  WARN 17906 --- [taskflow] [main] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-10-10T18:29:53.328+05:30  INFO 17906 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Creating task with title: Learn Spring Boot
+2026-10-10T18:29:53.331+05:30  INFO 17906 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Task created successfully with id: 1
+2026-10-10T18:29:53.366+05:30  INFO 17906 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Creating task with title: Learn Docker
+2026-10-10T18:29:53.368+05:30  INFO 17906 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Task created successfully with id: 2
+2026-10-10T18:29:53.404+05:30 DEBUG 17906 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Finding task with id: 999
+2026-10-10T18:29:53.407+05:30  WARN 17906 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Task not found with id: 999
+2026-10-10T18:29:53.420+05:30  INFO 17906 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Creating task with title: Learn Testcontainers
+2026-10-10T18:29:53.421+05:30  INFO 17906 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Task created successfully with id: 3
+2026-10-10T18:29:53.446+05:30  INFO 17906 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Creating task with title: Learn Integration Testing
+2026-10-10T18:29:53.447+05:30  INFO 17906 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Task created successfully with id: 4
+2026-10-10T18:29:53.458+05:30  INFO 17906 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Creating task with title: Delete this task
+2026-10-10T18:29:53.459+05:30  INFO 17906 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Task created successfully with id: 5
+2026-10-10T18:29:53.478+05:30  INFO 17906 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Creating task with title: Finish Spring Testing
+2026-10-10T18:29:53.479+05:30  INFO 17906 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Task created successfully with id: 6
+2026-10-10T18:29:53.487+05:30 DEBUG 17906 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Finding task with id: 6
+2026-10-10T18:29:53.767+05:30  INFO 17906 --- [taskflow] [main] tc.postgres:16-alpine                    : Creating container for image: postgres:16-alpine
+2026-10-10T18:29:53.854+05:30  INFO 17906 --- [taskflow] [main] tc.postgres:16-alpine                    : Container postgres:16-alpine is starting: dac70050b20592b3b206a1f34cbaff3115f609d7f31a68e52066039b79bd1f7e
+2026-10-10T18:29:54.819+05:30  INFO 17906 --- [taskflow] [main] tc.postgres:16-alpine                    : Container postgres:16-alpine started in PT1.051802S
+2026-10-10T18:29:54.822+05:30  INFO 17906 --- [taskflow] [main] tc.postgres:16-alpine                    : Container is started (JDBC URL: jdbc:postgresql://localhost:53136/test?loggerLevel=OFF)
+2026-10-10T18:29:54.834+05:30  INFO 17906 --- [taskflow] [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.taskflow.TaskflowApplicationTests]: TaskflowApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-10T18:29:54.854+05:30  INFO 17906 --- [taskflow] [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.taskflow.TaskflowApplication for test class com.example.taskflow.TaskflowApplicationTests
+2026-10-10T18:29:54.855+05:30  INFO 17906 --- [taskflow] [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.taskflow.TaskflowApplicationTests]: TaskflowApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-10T18:29:54.857+05:30  INFO 17906 --- [taskflow] [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.taskflow.TaskflowApplication for test class com.example.taskflow.TaskflowApplicationTests
+2026-10-10T18:29:54.870+05:30  INFO 17906 --- [taskflow] [main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+2026-10-10T18:29:54.893+05:30  INFO 17906 --- [taskflow] [main] c.e.taskflow.TaskflowApplicationTests    : Starting TaskflowApplicationTests using Java 22.0.2 with PID 17906 (started by janidubomal in /Users/janidubomal/Downloads/taskflow)
+2026-10-10T18:29:54.893+05:30 DEBUG 17906 --- [taskflow] [main] c.e.taskflow.TaskflowApplicationTests    : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-10-10T18:29:54.893+05:30  INFO 17906 --- [taskflow] [main] c.e.taskflow.TaskflowApplicationTests    : The following 1 profile is active: "dev"
+2026-10-10T18:29:54.999+05:30  INFO 17906 --- [taskflow] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-10T18:29:55.002+05:30  INFO 17906 --- [taskflow] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 1 JPA repository interface.
+2026-10-10T18:29:55.088+05:30  INFO 17906 --- [taskflow] [main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:53136/test?loggerLevel=OFF (PostgreSQL 16.15)
+2026-10-10T18:29:55.097+05:30  INFO 17906 --- [taskflow] [main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-10-10T18:29:55.097+05:30  INFO 17906 --- [taskflow] [main] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.002s)
+2026-10-10T18:29:55.103+05:30  INFO 17906 --- [taskflow] [main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-10-10T18:29:55.116+05:30  INFO 17906 --- [taskflow] [main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-10-10T18:29:55.117+05:30  INFO 17906 --- [taskflow] [main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - create tasks table"
+2026-10-10T18:29:55.126+05:30  INFO 17906 --- [taskflow] [main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "2 - add priority to tasks"
+2026-10-10T18:29:55.131+05:30  INFO 17906 --- [taskflow] [main] o.f.core.internal.command.DbMigrate      : Successfully applied 2 migrations to schema "public", now at version v2 (execution time 00:00.004s)
+2026-10-10T18:29:55.137+05:30  INFO 17906 --- [taskflow] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-10-10T18:29:55.145+05:30  INFO 17906 --- [taskflow] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-10T18:29:55.145+05:30  INFO 17906 --- [taskflow] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2026-10-10T18:29:55.152+05:30  INFO 17906 --- [taskflow] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection org.postgresql.jdbc.PgConnection@38c203a6
+2026-10-10T18:29:55.152+05:30  INFO 17906 --- [taskflow] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2026-10-10T18:29:55.156+05:30  INFO 17906 --- [taskflow] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:53136/test?loggerLevel=OFF]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 16.15
+	Default catalog/schema: test/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-10T18:29:55.177+05:30  INFO 17906 --- [taskflow] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-10T18:29:55.186+05:30  INFO 17906 --- [taskflow] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T18:29:55.207+05:30  WARN 17906 --- [taskflow] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-10-10T18:29:55.252+05:30  INFO 17906 --- [taskflow] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 4 endpoints beneath base path '/actuator'
+2026-10-10T18:29:55.257+05:30  INFO 17906 --- [taskflow] [main] c.e.taskflow.TaskflowApplicationTests    : Started TaskflowApplicationTests in 0.387 seconds (process running for 9.789)
+2026-10-10T18:29:55.258+05:30  WARN 17906 --- [taskflow] [main] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-10-10T18:29:55.258+05:30  WARN 17906 --- [taskflow] [main] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-10-10T18:29:55.416+05:30  INFO 17906 --- [taskflow] [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.taskflow.controller.TaskControllerTest]: TaskControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-10T18:29:55.427+05:30  INFO 17906 --- [taskflow] [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.taskflow.TaskflowApplication for test class com.example.taskflow.controller.TaskControllerTest
+2026-10-10T18:29:55.427+05:30  INFO 17906 --- [taskflow] [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.taskflow.controller.TaskControllerTest]: TaskControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-10T18:29:55.429+05:30  INFO 17906 --- [taskflow] [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.taskflow.TaskflowApplication for test class com.example.taskflow.controller.TaskControllerTest
+2026-10-10T18:29:55.431+05:30  INFO 17906 --- [taskflow] [main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+2026-10-10T18:29:55.460+05:30  INFO 17906 --- [taskflow] [main] c.e.t.controller.TaskControllerTest      : Starting TaskControllerTest using Java 22.0.2 with PID 17906 (started by janidubomal in /Users/janidubomal/Downloads/taskflow)
+2026-10-10T18:29:55.460+05:30 DEBUG 17906 --- [taskflow] [main] c.e.t.controller.TaskControllerTest      : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-10-10T18:29:55.460+05:30  INFO 17906 --- [taskflow] [main] c.e.t.controller.TaskControllerTest      : The following 1 profile is active: "dev"
+2026-10-10T18:29:55.764+05:30  INFO 17906 --- [taskflow] [main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-10-10T18:29:55.765+05:30  INFO 17906 --- [taskflow] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-10T18:29:55.767+05:30  INFO 17906 --- [taskflow] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
+2026-10-10T18:29:55.777+05:30  INFO 17906 --- [taskflow] [main] c.e.t.controller.TaskControllerTest      : Started TaskControllerTest in 0.346 seconds (process running for 10.309)
+2026-10-10T18:29:55.992+05:30 DEBUG 17906 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Finding task with id: 1
+2026-10-10T18:29:56.000+05:30  INFO 17906 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Creating task with title: Learn Mockito
+2026-10-10T18:29:56.001+05:30  INFO 17906 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Task created successfully with id: 1
+2026-10-10T18:29:56.003+05:30 DEBUG 17906 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Finding task with id: 1
+2026-10-10T18:29:56.005+05:30 DEBUG 17906 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Finding task with id: 999
+2026-10-10T18:29:56.005+05:30  WARN 17906 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Task not found with id: 999
+2026-10-10T18:29:56.035+05:30  INFO 17906 --- [taskflow] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T18:29:56.049+05:30  INFO 17906 --- [taskflow] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T18:29:56.049+05:30  INFO 17906 --- [taskflow] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-10-10T18:29:56.051+05:30  INFO 17906 --- [taskflow] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-10-10T18:29:56.054+05:30  INFO 17906 --- [taskflow] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T18:29:56.054+05:30  INFO 17906 --- [taskflow] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2026-10-10T18:29:56.117+05:30  INFO 17906 --- [taskflow] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2026-10-10T18:29:56.120+05:30  INFO 17906 --- [taskflow] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T18:29:56.121+05:30  INFO 17906 --- [taskflow] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2026-10-10T18:29:56.594+05:30  INFO 17906 --- [taskflow] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+2026-10-10T18:30:20.490+05:30  INFO 18088 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : Starting TaskflowApplication using Java 22.0.2 with PID 18088 (/Users/janidubomal/Downloads/taskflow/target/classes started by janidubomal in /Users/janidubomal/Downloads/taskflow)
+2026-10-10T18:30:20.492+05:30 DEBUG 18088 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-10-10T18:30:20.492+05:30  INFO 18088 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : The following 1 profile is active: "dev"
+2026-10-10T18:30:20.513+05:30  INFO 18088 --- [taskflow] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-10-10T18:30:20.513+05:30  INFO 18088 --- [taskflow] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-10-10T18:30:20.866+05:30  INFO 18088 --- [taskflow] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-10T18:30:20.885+05:30  INFO 18088 --- [taskflow] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 15 ms. Found 1 JPA repository interface.
+2026-10-10T18:30:21.091+05:30  INFO 18088 --- [taskflow] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-10-10T18:30:21.099+05:30  INFO 18088 --- [taskflow] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-10T18:30:21.099+05:30  INFO 18088 --- [taskflow] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-10-10T18:30:21.113+05:30  INFO 18088 --- [taskflow] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 600 ms
+2026-10-10T18:30:21.246+05:30  INFO 18088 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-10T18:30:21.335+05:30  INFO 18088 --- [taskflow] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@30ad959
+2026-10-10T18:30:21.336+05:30  INFO 18088 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-10T18:30:21.347+05:30  INFO 18088 --- [taskflow] [restartedMain] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:5432/taskflow (PostgreSQL 17.2)
+2026-10-10T18:30:21.389+05:30  INFO 18088 --- [taskflow] [restartedMain] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.019s)
+2026-10-10T18:30:21.409+05:30  INFO 18088 --- [taskflow] [restartedMain] o.f.core.internal.command.DbMigrate      : Current version of schema "public": 2
+2026-10-10T18:30:21.410+05:30  INFO 18088 --- [taskflow] [restartedMain] o.f.core.internal.command.DbMigrate      : Schema "public" is up to date. No migration necessary.
+2026-10-10T18:30:21.447+05:30  INFO 18088 --- [taskflow] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-10-10T18:30:21.477+05:30  INFO 18088 --- [taskflow] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-10-10T18:30:21.654+05:30  INFO 18088 --- [taskflow] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-10T18:30:21.696+05:30  INFO 18088 --- [taskflow] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/taskflow]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.2
+	Default catalog/schema: taskflow/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-10T18:30:22.027+05:30  INFO 18088 --- [taskflow] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-10T18:30:22.059+05:30  INFO 18088 --- [taskflow] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T18:30:22.094+05:30  INFO 18088 --- [taskflow] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-10-10T18:30:22.218+05:30  WARN 18088 --- [taskflow] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-10-10T18:30:22.408+05:30  INFO 18088 --- [taskflow] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 4 endpoints beneath base path '/actuator'
+2026-10-10T18:30:22.432+05:30  WARN 18088 --- [taskflow] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2026-10-10T18:30:22.435+05:30  INFO 18088 --- [taskflow] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T18:30:22.437+05:30  INFO 18088 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-10-10T18:30:22.438+05:30  INFO 18088 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-10-10T18:30:22.445+05:30  INFO 18088 --- [taskflow] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-10-10T18:30:22.451+05:30 ERROR 18088 --- [taskflow] [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2026-10-10T18:31:38.559+05:30  INFO 18269 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : Starting TaskflowApplication using Java 22.0.2 with PID 18269 (/Users/janidubomal/Downloads/taskflow/target/classes started by janidubomal in /Users/janidubomal/Downloads/taskflow)
+2026-10-10T18:31:38.560+05:30 DEBUG 18269 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-10-10T18:31:38.560+05:30  INFO 18269 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : The following 1 profile is active: "dev"
+2026-10-10T18:31:38.583+05:30  INFO 18269 --- [taskflow] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-10-10T18:31:38.583+05:30  INFO 18269 --- [taskflow] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-10-10T18:31:38.936+05:30  INFO 18269 --- [taskflow] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-10T18:31:38.954+05:30  INFO 18269 --- [taskflow] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 13 ms. Found 1 JPA repository interface.
+2026-10-10T18:31:39.172+05:30  INFO 18269 --- [taskflow] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-10-10T18:31:39.179+05:30  INFO 18269 --- [taskflow] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-10T18:31:39.179+05:30  INFO 18269 --- [taskflow] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-10-10T18:31:39.191+05:30  INFO 18269 --- [taskflow] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 608 ms
+2026-10-10T18:31:39.313+05:30  INFO 18269 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-10T18:31:39.387+05:30  INFO 18269 --- [taskflow] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1ce7273e
+2026-10-10T18:31:39.388+05:30  INFO 18269 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-10T18:31:39.396+05:30  INFO 18269 --- [taskflow] [restartedMain] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:5432/taskflow (PostgreSQL 17.2)
+2026-10-10T18:31:39.423+05:30  INFO 18269 --- [taskflow] [restartedMain] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.011s)
+2026-10-10T18:31:39.447+05:30  INFO 18269 --- [taskflow] [restartedMain] o.f.core.internal.command.DbMigrate      : Current version of schema "public": 2
+2026-10-10T18:31:39.448+05:30  INFO 18269 --- [taskflow] [restartedMain] o.f.core.internal.command.DbMigrate      : Schema "public" is up to date. No migration necessary.
+2026-10-10T18:31:39.484+05:30  INFO 18269 --- [taskflow] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-10-10T18:31:39.515+05:30  INFO 18269 --- [taskflow] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-10-10T18:31:39.692+05:30  INFO 18269 --- [taskflow] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-10T18:31:39.729+05:30  INFO 18269 --- [taskflow] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/taskflow]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.2
+	Default catalog/schema: taskflow/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-10T18:31:40.063+05:30  INFO 18269 --- [taskflow] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-10T18:31:40.096+05:30  INFO 18269 --- [taskflow] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T18:31:40.128+05:30  INFO 18269 --- [taskflow] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-10-10T18:31:40.275+05:30  WARN 18269 --- [taskflow] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-10-10T18:31:40.462+05:30  INFO 18269 --- [taskflow] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 4 endpoints beneath base path '/actuator'
+2026-10-10T18:31:40.485+05:30  WARN 18269 --- [taskflow] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2026-10-10T18:31:40.486+05:30  INFO 18269 --- [taskflow] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T18:31:40.488+05:30  INFO 18269 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-10-10T18:31:40.488+05:30  INFO 18269 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-10-10T18:31:40.495+05:30  INFO 18269 --- [taskflow] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-10-10T18:31:40.500+05:30 ERROR 18269 --- [taskflow] [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2026-10-10T18:31:56.093+05:30  INFO 18330 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : Starting TaskflowApplication using Java 22.0.2 with PID 18330 (/Users/janidubomal/Downloads/taskflow/target/classes started by janidubomal in /Users/janidubomal/Downloads/taskflow)
+2026-10-10T18:31:56.094+05:30 DEBUG 18330 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-10-10T18:31:56.095+05:30  INFO 18330 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : The following 1 profile is active: "dev"
+2026-10-10T18:31:56.115+05:30  INFO 18330 --- [taskflow] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-10-10T18:31:56.115+05:30  INFO 18330 --- [taskflow] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-10-10T18:31:56.488+05:30  INFO 18330 --- [taskflow] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-10T18:31:56.504+05:30  INFO 18330 --- [taskflow] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 1 JPA repository interface.
+2026-10-10T18:31:56.711+05:30  INFO 18330 --- [taskflow] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-10-10T18:31:56.718+05:30  INFO 18330 --- [taskflow] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-10T18:31:56.719+05:30  INFO 18330 --- [taskflow] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-10-10T18:31:56.734+05:30  INFO 18330 --- [taskflow] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 619 ms
+2026-10-10T18:31:56.860+05:30  INFO 18330 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-10T18:31:57.921+05:30  WARN 18330 --- [taskflow] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: Failed to initialize dependency 'flywayInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/flyway/autoconfigure/FlywayAutoConfiguration$FlywayConfiguration.class]: Unable to obtain connection from database: FATAL: password authentication failed for user "janidubomal"
+-------------------------------------------------------------------------------------------------------
+SQL State  : 28P01
+Error Code : 0
+Message    : FATAL: password authentication failed for user "janidubomal"
+
+2026-10-10T18:31:57.926+05:30  INFO 18330 --- [taskflow] [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-10-10T18:31:57.942+05:30  INFO 18330 --- [taskflow] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-10-10T18:31:57.951+05:30 ERROR 18330 --- [taskflow] [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: Failed to initialize dependency 'flywayInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/flyway/autoconfigure/FlywayAutoConfiguration$FlywayConfiguration.class]: Unable to obtain connection from database: FATAL: password authentication failed for user "janidubomal"
+-------------------------------------------------------------------------------------------------------
+SQL State  : 28P01
+Error Code : 0
+Message    : FATAL: password authentication failed for user "janidubomal"
+
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322) ~[spring-beans-7.0.9.jar:7.0.9]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201) ~[spring-beans-7.0.9.jar:7.0.9]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:977) ~[spring-context-7.0.9.jar:7.0.9]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:621) ~[spring-context-7.0.9.jar:7.0.9]
+	at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143) ~[spring-boot-web-server-4.1.1.jar:4.1.1]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756) ~[spring-boot-4.1.1.jar:4.1.1]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445) ~[spring-boot-4.1.1.jar:4.1.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:321) ~[spring-boot-4.1.1.jar:4.1.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365) ~[spring-boot-4.1.1.jar:4.1.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354) ~[spring-boot-4.1.1.jar:4.1.1]
+	at com.example.taskflow.TaskflowApplication.main(TaskflowApplication.java:10) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:52) ~[spring-boot-devtools-4.1.1.jar:4.1.1]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/flyway/autoconfigure/FlywayAutoConfiguration$FlywayConfiguration.class]: Unable to obtain connection from database: FATAL: password authentication failed for user "janidubomal"
+-------------------------------------------------------------------------------------------------------
+SQL State  : 28P01
+Error Code : 0
+Message    : FATAL: password authentication failed for user "janidubomal"
+
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1815) ~[spring-beans-7.0.9.jar:7.0.9]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603) ~[spring-beans-7.0.9.jar:7.0.9]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525) ~[spring-beans-7.0.9.jar:7.0.9]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333) ~[spring-beans-7.0.9.jar:7.0.9]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371) ~[spring-beans-7.0.9.jar:7.0.9]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331) ~[spring-beans-7.0.9.jar:7.0.9]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196) ~[spring-beans-7.0.9.jar:7.0.9]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:309) ~[spring-beans-7.0.9.jar:7.0.9]
+	... 13 common frames omitted
+Caused by: org.flywaydb.core.internal.exception.sqlExceptions.FlywaySqlUnableToConnectToDbException: Unable to obtain connection from database: FATAL: password authentication failed for user "janidubomal"
+-------------------------------------------------------------------------------------------------------
+SQL State  : 28P01
+Error Code : 0
+Message    : FATAL: password authentication failed for user "janidubomal"
+
+	at org.flywaydb.core.internal.jdbc.JdbcUtils.openConnection(JdbcUtils.java:78) ~[flyway-core-12.4.0.jar:na]
+	at org.flywaydb.core.internal.jdbc.JdbcConnectionFactory.<init>(JdbcConnectionFactory.java:76) ~[flyway-core-12.4.0.jar:na]
+	at org.flywaydb.core.FlywayExecutor.init(FlywayExecutor.java:275) ~[flyway-core-12.4.0.jar:na]
+	at org.flywaydb.core.FlywayExecutor.execute(FlywayExecutor.java:120) ~[flyway-core-12.4.0.jar:na]
+	at org.flywaydb.core.Flyway.migrate(Flyway.java:181) ~[flyway-core-12.4.0.jar:na]
+	at org.springframework.boot.flyway.autoconfigure.FlywayMigrationInitializer.afterPropertiesSet(FlywayMigrationInitializer.java:67) ~[spring-boot-flyway-4.1.1.jar:4.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1862) ~[spring-beans-7.0.9.jar:7.0.9]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1811) ~[spring-beans-7.0.9.jar:7.0.9]
+	... 20 common frames omitted
+Caused by: org.postgresql.util.PSQLException: FATAL: password authentication failed for user "janidubomal"
+	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:837) ~[postgresql-42.7.13.jar:42.7.13]
+	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:309) ~[postgresql-42.7.13.jar:42.7.13]
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:367) ~[postgresql-42.7.13.jar:42.7.13]
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:52) ~[postgresql-42.7.13.jar:42.7.13]
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:295) ~[postgresql-42.7.13.jar:42.7.13]
+	at org.postgresql.Driver.makeConnection(Driver.java:437) ~[postgresql-42.7.13.jar:42.7.13]
+	at org.postgresql.Driver.connect(Driver.java:305) ~[postgresql-42.7.13.jar:42.7.13]
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:144) ~[HikariCP-7.0.2.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:373) ~[HikariCP-7.0.2.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:210) ~[HikariCP-7.0.2.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:488) ~[HikariCP-7.0.2.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:576) ~[HikariCP-7.0.2.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:97) ~[HikariCP-7.0.2.jar:na]
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:111) ~[HikariCP-7.0.2.jar:na]
+	at org.flywaydb.core.internal.jdbc.JdbcUtils.openConnection(JdbcUtils.java:73) ~[flyway-core-12.4.0.jar:na]
+	... 27 common frames omitted
+
+2026-10-10T18:33:34.348+05:30  INFO 18510 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : Starting TaskflowApplication using Java 22.0.2 with PID 18510 (/Users/janidubomal/Downloads/taskflow/target/classes started by janidubomal in /Users/janidubomal/Downloads/taskflow)
+2026-10-10T18:33:34.349+05:30 DEBUG 18510 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-10-10T18:33:34.349+05:30  INFO 18510 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : The following 1 profile is active: "dev"
+2026-10-10T18:33:34.371+05:30  INFO 18510 --- [taskflow] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-10-10T18:33:34.371+05:30  INFO 18510 --- [taskflow] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-10-10T18:33:34.724+05:30  INFO 18510 --- [taskflow] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-10T18:33:34.740+05:30  INFO 18510 --- [taskflow] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 1 JPA repository interface.
+2026-10-10T18:33:34.942+05:30  INFO 18510 --- [taskflow] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-10-10T18:33:34.949+05:30  INFO 18510 --- [taskflow] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-10T18:33:34.949+05:30  INFO 18510 --- [taskflow] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-10-10T18:33:34.963+05:30  INFO 18510 --- [taskflow] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 592 ms
+2026-10-10T18:33:35.086+05:30  INFO 18510 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-10T18:33:35.164+05:30  INFO 18510 --- [taskflow] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1c96796c
+2026-10-10T18:33:35.165+05:30  INFO 18510 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-10T18:33:35.174+05:30  INFO 18510 --- [taskflow] [restartedMain] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:5432/taskflow (PostgreSQL 17.2)
+2026-10-10T18:33:35.201+05:30  INFO 18510 --- [taskflow] [restartedMain] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.010s)
+2026-10-10T18:33:35.223+05:30  INFO 18510 --- [taskflow] [restartedMain] o.f.core.internal.command.DbMigrate      : Current version of schema "public": 2
+2026-10-10T18:33:35.225+05:30  INFO 18510 --- [taskflow] [restartedMain] o.f.core.internal.command.DbMigrate      : Schema "public" is up to date. No migration necessary.
+2026-10-10T18:33:35.260+05:30  INFO 18510 --- [taskflow] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-10-10T18:33:35.290+05:30  INFO 18510 --- [taskflow] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-10-10T18:33:35.467+05:30  INFO 18510 --- [taskflow] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-10T18:33:35.505+05:30  INFO 18510 --- [taskflow] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/taskflow]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.2
+	Default catalog/schema: taskflow/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-10T18:33:35.840+05:30  INFO 18510 --- [taskflow] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-10T18:33:35.871+05:30  INFO 18510 --- [taskflow] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T18:33:35.904+05:30  INFO 18510 --- [taskflow] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-10-10T18:33:36.032+05:30  WARN 18510 --- [taskflow] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-10-10T18:33:36.218+05:30  INFO 18510 --- [taskflow] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 4 endpoints beneath base path '/actuator'
+2026-10-10T18:33:36.241+05:30  WARN 18510 --- [taskflow] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2026-10-10T18:33:36.243+05:30  INFO 18510 --- [taskflow] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T18:33:36.244+05:30  INFO 18510 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-10-10T18:33:36.245+05:30  INFO 18510 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-10-10T18:33:36.252+05:30  INFO 18510 --- [taskflow] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-10-10T18:33:36.257+05:30 ERROR 18510 --- [taskflow] [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2026-10-10T18:34:02.265+05:30  INFO 18694 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : Starting TaskflowApplication using Java 22.0.2 with PID 18694 (/Users/janidubomal/Downloads/taskflow/target/classes started by janidubomal in /Users/janidubomal/Downloads/taskflow)
+2026-10-10T18:34:02.266+05:30 DEBUG 18694 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-10-10T18:34:02.266+05:30  INFO 18694 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : The following 1 profile is active: "dev"
+2026-10-10T18:34:02.287+05:30  INFO 18694 --- [taskflow] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-10-10T18:34:02.287+05:30  INFO 18694 --- [taskflow] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-10-10T18:34:02.645+05:30  INFO 18694 --- [taskflow] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-10T18:34:02.662+05:30  INFO 18694 --- [taskflow] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 13 ms. Found 1 JPA repository interface.
+2026-10-10T18:34:02.871+05:30  INFO 18694 --- [taskflow] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-10-10T18:34:02.878+05:30  INFO 18694 --- [taskflow] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-10T18:34:02.878+05:30  INFO 18694 --- [taskflow] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-10-10T18:34:02.892+05:30  INFO 18694 --- [taskflow] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 605 ms
+2026-10-10T18:34:03.019+05:30  INFO 18694 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-10T18:34:03.100+05:30  INFO 18694 --- [taskflow] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@37b992cf
+2026-10-10T18:34:03.101+05:30  INFO 18694 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-10T18:34:03.109+05:30  INFO 18694 --- [taskflow] [restartedMain] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:5432/taskflow (PostgreSQL 17.2)
+2026-10-10T18:34:03.138+05:30  INFO 18694 --- [taskflow] [restartedMain] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.010s)
+2026-10-10T18:34:03.160+05:30  INFO 18694 --- [taskflow] [restartedMain] o.f.core.internal.command.DbMigrate      : Current version of schema "public": 2
+2026-10-10T18:34:03.161+05:30  INFO 18694 --- [taskflow] [restartedMain] o.f.core.internal.command.DbMigrate      : Schema "public" is up to date. No migration necessary.
+2026-10-10T18:34:03.198+05:30  INFO 18694 --- [taskflow] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-10-10T18:34:03.229+05:30  INFO 18694 --- [taskflow] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-10-10T18:34:03.412+05:30  INFO 18694 --- [taskflow] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-10T18:34:03.448+05:30  INFO 18694 --- [taskflow] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/taskflow]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.2
+	Default catalog/schema: taskflow/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-10T18:34:03.783+05:30  INFO 18694 --- [taskflow] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-10T18:34:03.806+05:30  INFO 18694 --- [taskflow] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T18:34:03.840+05:30  INFO 18694 --- [taskflow] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-10-10T18:34:03.970+05:30  WARN 18694 --- [taskflow] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-10-10T18:34:04.177+05:30  INFO 18694 --- [taskflow] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 4 endpoints beneath base path '/actuator'
+2026-10-10T18:34:04.201+05:30  WARN 18694 --- [taskflow] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2026-10-10T18:34:04.202+05:30  INFO 18694 --- [taskflow] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T18:34:04.203+05:30  INFO 18694 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-10-10T18:34:04.204+05:30  INFO 18694 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-10-10T18:34:04.212+05:30  INFO 18694 --- [taskflow] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-10-10T18:34:04.218+05:30 ERROR 18694 --- [taskflow] [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2026-10-10T18:38:48.877+05:30  INFO 19034 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : Starting TaskflowApplication using Java 22.0.2 with PID 19034 (/Users/janidubomal/Downloads/taskflow/target/classes started by janidubomal in /Users/janidubomal/Downloads/taskflow)
+2026-10-10T18:38:48.878+05:30 DEBUG 19034 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-10-10T18:38:48.878+05:30  INFO 19034 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : The following 1 profile is active: "dev"
+2026-10-10T18:38:48.903+05:30  INFO 19034 --- [taskflow] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-10-10T18:38:48.903+05:30  INFO 19034 --- [taskflow] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-10-10T18:38:49.279+05:30  INFO 19034 --- [taskflow] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-10T18:38:49.297+05:30  INFO 19034 --- [taskflow] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 13 ms. Found 1 JPA repository interface.
+2026-10-10T18:38:49.510+05:30  INFO 19034 --- [taskflow] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-10-10T18:38:49.519+05:30  INFO 19034 --- [taskflow] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-10T18:38:49.519+05:30  INFO 19034 --- [taskflow] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-10-10T18:38:49.533+05:30  INFO 19034 --- [taskflow] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 628 ms
+2026-10-10T18:38:49.658+05:30  INFO 19034 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-10T18:38:49.742+05:30  INFO 19034 --- [taskflow] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@23c56170
+2026-10-10T18:38:49.743+05:30  INFO 19034 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-10T18:38:49.755+05:30  INFO 19034 --- [taskflow] [restartedMain] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:5432/taskflow (PostgreSQL 17.2)
+2026-10-10T18:38:49.798+05:30  INFO 19034 --- [taskflow] [restartedMain] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.020s)
+2026-10-10T18:38:49.818+05:30  INFO 19034 --- [taskflow] [restartedMain] o.f.core.internal.command.DbMigrate      : Current version of schema "public": 2
+2026-10-10T18:38:49.819+05:30  INFO 19034 --- [taskflow] [restartedMain] o.f.core.internal.command.DbMigrate      : Schema "public" is up to date. No migration necessary.
+2026-10-10T18:38:49.853+05:30  INFO 19034 --- [taskflow] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-10-10T18:38:49.883+05:30  INFO 19034 --- [taskflow] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-10-10T18:38:50.058+05:30  INFO 19034 --- [taskflow] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-10T18:38:50.099+05:30  INFO 19034 --- [taskflow] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/taskflow]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.2
+	Default catalog/schema: taskflow/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-10T18:38:50.459+05:30  INFO 19034 --- [taskflow] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-10T18:38:50.485+05:30  INFO 19034 --- [taskflow] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T18:38:50.519+05:30  INFO 19034 --- [taskflow] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-10-10T18:38:50.643+05:30  WARN 19034 --- [taskflow] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-10-10T18:38:50.834+05:30  INFO 19034 --- [taskflow] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 4 endpoints beneath base path '/actuator'
+2026-10-10T18:38:50.859+05:30  WARN 19034 --- [taskflow] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2026-10-10T18:38:50.863+05:30  INFO 19034 --- [taskflow] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T18:38:50.864+05:30  INFO 19034 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-10-10T18:38:50.865+05:30  INFO 19034 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-10-10T18:38:50.872+05:30  INFO 19034 --- [taskflow] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-10-10T18:38:50.877+05:30 ERROR 19034 --- [taskflow] [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2026-10-10T18:40:10.779+05:30  INFO 19276 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : Starting TaskflowApplication using Java 22.0.2 with PID 19276 (/Users/janidubomal/Downloads/taskflow/target/classes started by janidubomal in /Users/janidubomal/Downloads/taskflow)
+2026-10-10T18:40:10.780+05:30 DEBUG 19276 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-10-10T18:40:10.781+05:30  INFO 19276 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : The following 1 profile is active: "dev"
+2026-10-10T18:40:10.803+05:30  INFO 19276 --- [taskflow] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-10-10T18:40:10.803+05:30  INFO 19276 --- [taskflow] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-10-10T18:40:11.169+05:30  INFO 19276 --- [taskflow] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-10T18:40:11.187+05:30  INFO 19276 --- [taskflow] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 13 ms. Found 1 JPA repository interface.
+2026-10-10T18:40:11.400+05:30  INFO 19276 --- [taskflow] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-10-10T18:40:11.407+05:30  INFO 19276 --- [taskflow] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-10T18:40:11.407+05:30  INFO 19276 --- [taskflow] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-10-10T18:40:11.422+05:30  INFO 19276 --- [taskflow] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 619 ms
+2026-10-10T18:40:11.545+05:30  INFO 19276 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-10T18:40:11.638+05:30  INFO 19276 --- [taskflow] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1ce7273e
+2026-10-10T18:40:11.639+05:30  INFO 19276 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-10T18:40:11.652+05:30  INFO 19276 --- [taskflow] [restartedMain] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:5432/taskflow (PostgreSQL 17.2)
+2026-10-10T18:40:11.693+05:30  INFO 19276 --- [taskflow] [restartedMain] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.013s)
+2026-10-10T18:40:11.712+05:30  INFO 19276 --- [taskflow] [restartedMain] o.f.core.internal.command.DbMigrate      : Current version of schema "public": 2
+2026-10-10T18:40:11.713+05:30  INFO 19276 --- [taskflow] [restartedMain] o.f.core.internal.command.DbMigrate      : Schema "public" is up to date. No migration necessary.
+2026-10-10T18:40:11.749+05:30  INFO 19276 --- [taskflow] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-10-10T18:40:11.779+05:30  INFO 19276 --- [taskflow] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-10-10T18:40:11.954+05:30  INFO 19276 --- [taskflow] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-10T18:40:11.991+05:30  INFO 19276 --- [taskflow] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/taskflow]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.2
+	Default catalog/schema: taskflow/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-10T18:40:12.319+05:30  INFO 19276 --- [taskflow] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-10T18:40:12.351+05:30  INFO 19276 --- [taskflow] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T18:40:12.385+05:30  INFO 19276 --- [taskflow] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-10-10T18:40:12.515+05:30  WARN 19276 --- [taskflow] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-10-10T18:40:12.706+05:30  INFO 19276 --- [taskflow] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 4 endpoints beneath base path '/actuator'
+2026-10-10T18:40:12.730+05:30  WARN 19276 --- [taskflow] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2026-10-10T18:40:12.733+05:30  INFO 19276 --- [taskflow] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T18:40:12.735+05:30  INFO 19276 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-10-10T18:40:12.736+05:30  INFO 19276 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-10-10T18:40:12.743+05:30  INFO 19276 --- [taskflow] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-10-10T18:40:12.747+05:30 ERROR 19276 --- [taskflow] [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2026-10-10T18:42:10.346+05:30  INFO 19466 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : Starting TaskflowApplication using Java 22.0.2 with PID 19466 (/Users/janidubomal/Downloads/taskflow/target/classes started by janidubomal in /Users/janidubomal/Downloads/taskflow)
+2026-10-10T18:42:10.347+05:30 DEBUG 19466 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-10-10T18:42:10.347+05:30  INFO 19466 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : The following 1 profile is active: "dev"
+2026-10-10T18:42:10.369+05:30  INFO 19466 --- [taskflow] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-10-10T18:42:10.369+05:30  INFO 19466 --- [taskflow] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-10-10T18:42:10.762+05:30  INFO 19466 --- [taskflow] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-10T18:42:10.779+05:30  INFO 19466 --- [taskflow] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 13 ms. Found 1 JPA repository interface.
+2026-10-10T18:42:10.988+05:30  INFO 19466 --- [taskflow] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-10-10T18:42:10.994+05:30  INFO 19466 --- [taskflow] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-10T18:42:10.995+05:30  INFO 19466 --- [taskflow] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-10-10T18:42:11.008+05:30  INFO 19466 --- [taskflow] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 638 ms
+2026-10-10T18:42:11.128+05:30  INFO 19466 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-10T18:42:11.201+05:30  INFO 19466 --- [taskflow] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@550ec089
+2026-10-10T18:42:11.202+05:30  INFO 19466 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-10T18:42:11.209+05:30  INFO 19466 --- [taskflow] [restartedMain] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:5432/taskflow (PostgreSQL 17.2)
+2026-10-10T18:42:11.236+05:30  INFO 19466 --- [taskflow] [restartedMain] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.010s)
+2026-10-10T18:42:11.256+05:30  INFO 19466 --- [taskflow] [restartedMain] o.f.core.internal.command.DbMigrate      : Current version of schema "public": 2
+2026-10-10T18:42:11.257+05:30  INFO 19466 --- [taskflow] [restartedMain] o.f.core.internal.command.DbMigrate      : Schema "public" is up to date. No migration necessary.
+2026-10-10T18:42:11.291+05:30  INFO 19466 --- [taskflow] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-10-10T18:42:11.320+05:30  INFO 19466 --- [taskflow] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-10-10T18:42:11.496+05:30  INFO 19466 --- [taskflow] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-10T18:42:11.532+05:30  INFO 19466 --- [taskflow] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/taskflow]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.2
+	Default catalog/schema: taskflow/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-10T18:42:11.857+05:30  INFO 19466 --- [taskflow] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-10T18:42:11.886+05:30  INFO 19466 --- [taskflow] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T18:42:11.919+05:30  INFO 19466 --- [taskflow] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-10-10T18:42:12.039+05:30  WARN 19466 --- [taskflow] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-10-10T18:42:12.230+05:30  INFO 19466 --- [taskflow] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 4 endpoints beneath base path '/actuator'
+2026-10-10T18:42:12.253+05:30  WARN 19466 --- [taskflow] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2026-10-10T18:42:12.254+05:30  INFO 19466 --- [taskflow] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T18:42:12.255+05:30  INFO 19466 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-10-10T18:42:12.256+05:30  INFO 19466 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-10-10T18:42:12.262+05:30  INFO 19466 --- [taskflow] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-10-10T18:42:12.268+05:30 ERROR 19466 --- [taskflow] [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2026-10-10T18:44:56.818+05:30  INFO 19890 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : Starting TaskflowApplication using Java 22.0.2 with PID 19890 (/Users/janidubomal/Downloads/taskflow/target/classes started by janidubomal in /Users/janidubomal/Downloads/taskflow)
+2026-10-10T18:44:56.819+05:30 DEBUG 19890 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-10-10T18:44:56.819+05:30  INFO 19890 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : The following 1 profile is active: "dev"
+2026-10-10T18:44:56.840+05:30  INFO 19890 --- [taskflow] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-10-10T18:44:56.840+05:30  INFO 19890 --- [taskflow] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-10-10T18:44:57.207+05:30  INFO 19890 --- [taskflow] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-10T18:44:57.225+05:30  INFO 19890 --- [taskflow] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 15 ms. Found 1 JPA repository interface.
+2026-10-10T18:44:57.453+05:30  INFO 19890 --- [taskflow] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-10-10T18:44:57.462+05:30  INFO 19890 --- [taskflow] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-10T18:44:57.462+05:30  INFO 19890 --- [taskflow] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-10-10T18:44:57.481+05:30  INFO 19890 --- [taskflow] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 641 ms
+2026-10-10T18:44:57.614+05:30  INFO 19890 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-10T18:44:57.717+05:30  INFO 19890 --- [taskflow] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6f8967af
+2026-10-10T18:44:57.717+05:30  INFO 19890 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-10T18:44:57.737+05:30  INFO 19890 --- [taskflow] [restartedMain] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:5432/taskflow (PostgreSQL 17.2)
+2026-10-10T18:44:57.774+05:30  INFO 19890 --- [taskflow] [restartedMain] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.013s)
+2026-10-10T18:44:57.795+05:30  INFO 19890 --- [taskflow] [restartedMain] o.f.core.internal.command.DbMigrate      : Current version of schema "public": 2
+2026-10-10T18:44:57.796+05:30  INFO 19890 --- [taskflow] [restartedMain] o.f.core.internal.command.DbMigrate      : Schema "public" is up to date. No migration necessary.
+2026-10-10T18:44:57.833+05:30  INFO 19890 --- [taskflow] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-10-10T18:44:57.863+05:30  INFO 19890 --- [taskflow] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-10-10T18:44:58.092+05:30  INFO 19890 --- [taskflow] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-10T18:44:58.132+05:30  INFO 19890 --- [taskflow] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/taskflow]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.2
+	Default catalog/schema: taskflow/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-10T18:44:58.492+05:30  INFO 19890 --- [taskflow] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-10T18:44:58.522+05:30  INFO 19890 --- [taskflow] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T18:44:58.556+05:30  INFO 19890 --- [taskflow] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-10-10T18:44:58.688+05:30  WARN 19890 --- [taskflow] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-10-10T18:44:58.886+05:30  INFO 19890 --- [taskflow] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 4 endpoints beneath base path '/actuator'
+2026-10-10T18:44:58.912+05:30  WARN 19890 --- [taskflow] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2026-10-10T18:44:58.914+05:30  INFO 19890 --- [taskflow] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T18:44:58.915+05:30  INFO 19890 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-10-10T18:44:58.916+05:30  INFO 19890 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-10-10T18:44:58.923+05:30  INFO 19890 --- [taskflow] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-10-10T18:44:58.931+05:30 ERROR 19890 --- [taskflow] [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2026-10-10T18:47:36.384+05:30  INFO 20158 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : Starting TaskflowApplication using Java 22.0.2 with PID 20158 (/Users/janidubomal/Downloads/taskflow/target/classes started by janidubomal in /Users/janidubomal/Downloads/taskflow)
+2026-10-10T18:47:36.386+05:30 DEBUG 20158 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-10-10T18:47:36.386+05:30  INFO 20158 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : The following 1 profile is active: "dev"
+2026-10-10T18:47:36.406+05:30  INFO 20158 --- [taskflow] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-10-10T18:47:36.406+05:30  INFO 20158 --- [taskflow] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-10-10T18:47:36.776+05:30  INFO 20158 --- [taskflow] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-10T18:47:36.793+05:30  INFO 20158 --- [taskflow] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 1 JPA repository interface.
+2026-10-10T18:47:37.004+05:30  INFO 20158 --- [taskflow] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-10-10T18:47:37.012+05:30  INFO 20158 --- [taskflow] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-10T18:47:37.012+05:30  INFO 20158 --- [taskflow] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-10-10T18:47:37.024+05:30  INFO 20158 --- [taskflow] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 618 ms
+2026-10-10T18:47:37.148+05:30  INFO 20158 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-10T18:47:37.248+05:30  INFO 20158 --- [taskflow] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@30ad959
+2026-10-10T18:47:37.248+05:30  INFO 20158 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-10T18:47:37.263+05:30  INFO 20158 --- [taskflow] [restartedMain] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:5432/taskflow (PostgreSQL 17.2)
+2026-10-10T18:47:37.303+05:30  INFO 20158 --- [taskflow] [restartedMain] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.019s)
+2026-10-10T18:47:37.321+05:30  INFO 20158 --- [taskflow] [restartedMain] o.f.core.internal.command.DbMigrate      : Current version of schema "public": 2
+2026-10-10T18:47:37.322+05:30  INFO 20158 --- [taskflow] [restartedMain] o.f.core.internal.command.DbMigrate      : Schema "public" is up to date. No migration necessary.
+2026-10-10T18:47:37.359+05:30  INFO 20158 --- [taskflow] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-10-10T18:47:37.389+05:30  INFO 20158 --- [taskflow] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-10-10T18:47:37.568+05:30  INFO 20158 --- [taskflow] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-10T18:47:37.606+05:30  INFO 20158 --- [taskflow] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/taskflow]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.2
+	Default catalog/schema: taskflow/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-10T18:47:37.930+05:30  INFO 20158 --- [taskflow] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-10T18:47:37.960+05:30  INFO 20158 --- [taskflow] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T18:47:37.994+05:30  INFO 20158 --- [taskflow] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-10-10T18:47:38.118+05:30  WARN 20158 --- [taskflow] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-10-10T18:47:38.309+05:30  INFO 20158 --- [taskflow] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 4 endpoints beneath base path '/actuator'
+2026-10-10T18:47:38.339+05:30  INFO 20158 --- [taskflow] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-10-10T18:47:38.344+05:30  INFO 20158 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : Started TaskflowApplication in 2.156 seconds (process running for 2.341)
+2026-10-10T18:47:38.375+05:30  WARN 20158 --- [taskflow] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-10-10T18:47:38.376+05:30  WARN 20158 --- [taskflow] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-10-10T18:47:46.549+05:30  INFO 20158 --- [taskflow] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-10T18:47:46.550+05:30  INFO 20158 --- [taskflow] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-10T18:47:46.553+05:30  INFO 20158 --- [taskflow] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2026-10-10T18:47:46.840+05:30  INFO 20158 --- [taskflow] [http-nio-8080-exec-10] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 120 ms
+2026-10-10T18:52:33.263+05:30  INFO 20158 --- [taskflow] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-10-10T18:52:33.271+05:30  INFO 20158 --- [taskflow] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-10-10T18:52:33.281+05:30  INFO 20158 --- [taskflow] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T18:52:33.290+05:30  INFO 20158 --- [taskflow] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-10-10T18:52:33.293+05:30  INFO 20158 --- [taskflow] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-10-10T18:52:36.916+05:30  INFO 20452 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : Starting TaskflowApplication using Java 22.0.2 with PID 20452 (/Users/janidubomal/Downloads/taskflow/target/classes started by janidubomal in /Users/janidubomal/Downloads/taskflow)
+2026-10-10T18:52:36.916+05:30 DEBUG 20452 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-10-10T18:52:36.917+05:30  INFO 20452 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : No active profile set, falling back to 1 default profile: "dev"
+2026-10-10T18:52:36.942+05:30  INFO 20452 --- [taskflow] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-10-10T18:52:36.942+05:30  INFO 20452 --- [taskflow] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-10-10T18:52:37.404+05:30  INFO 20452 --- [taskflow] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-10T18:52:37.425+05:30  INFO 20452 --- [taskflow] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 16 ms. Found 1 JPA repository interface.
+2026-10-10T18:52:37.669+05:30  INFO 20452 --- [taskflow] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-10-10T18:52:37.676+05:30  INFO 20452 --- [taskflow] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-10T18:52:37.676+05:30  INFO 20452 --- [taskflow] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-10-10T18:52:37.690+05:30  INFO 20452 --- [taskflow] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 748 ms
+2026-10-10T18:52:37.814+05:30  INFO 20452 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-10T18:52:38.881+05:30  WARN 20452 --- [taskflow] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: Failed to initialize dependency 'flywayInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/flyway/autoconfigure/FlywayAutoConfiguration$FlywayConfiguration.class]: Unable to obtain connection from database: FATAL: password authentication failed for user "janidubomal"
+-------------------------------------------------------------------------------------------------------
+SQL State  : 28P01
+Error Code : 0
+Message    : FATAL: password authentication failed for user "janidubomal"
+
+2026-10-10T18:52:38.889+05:30  INFO 20452 --- [taskflow] [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-10-10T18:52:38.906+05:30  INFO 20452 --- [taskflow] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-10-10T18:52:38.913+05:30 ERROR 20452 --- [taskflow] [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: Failed to initialize dependency 'flywayInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/flyway/autoconfigure/FlywayAutoConfiguration$FlywayConfiguration.class]: Unable to obtain connection from database: FATAL: password authentication failed for user "janidubomal"
+-------------------------------------------------------------------------------------------------------
+SQL State  : 28P01
+Error Code : 0
+Message    : FATAL: password authentication failed for user "janidubomal"
+
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322) ~[spring-beans-7.0.9.jar:7.0.9]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201) ~[spring-beans-7.0.9.jar:7.0.9]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:977) ~[spring-context-7.0.9.jar:7.0.9]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:621) ~[spring-context-7.0.9.jar:7.0.9]
+	at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143) ~[spring-boot-web-server-4.1.1.jar:4.1.1]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756) ~[spring-boot-4.1.1.jar:4.1.1]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445) ~[spring-boot-4.1.1.jar:4.1.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:321) ~[spring-boot-4.1.1.jar:4.1.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365) ~[spring-boot-4.1.1.jar:4.1.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354) ~[spring-boot-4.1.1.jar:4.1.1]
+	at com.example.taskflow.TaskflowApplication.main(TaskflowApplication.java:10) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:52) ~[spring-boot-devtools-4.1.1.jar:4.1.1]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/flyway/autoconfigure/FlywayAutoConfiguration$FlywayConfiguration.class]: Unable to obtain connection from database: FATAL: password authentication failed for user "janidubomal"
+-------------------------------------------------------------------------------------------------------
+SQL State  : 28P01
+Error Code : 0
+Message    : FATAL: password authentication failed for user "janidubomal"
+
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1815) ~[spring-beans-7.0.9.jar:7.0.9]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603) ~[spring-beans-7.0.9.jar:7.0.9]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525) ~[spring-beans-7.0.9.jar:7.0.9]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333) ~[spring-beans-7.0.9.jar:7.0.9]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371) ~[spring-beans-7.0.9.jar:7.0.9]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331) ~[spring-beans-7.0.9.jar:7.0.9]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196) ~[spring-beans-7.0.9.jar:7.0.9]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:309) ~[spring-beans-7.0.9.jar:7.0.9]
+	... 13 common frames omitted
+Caused by: org.flywaydb.core.internal.exception.sqlExceptions.FlywaySqlUnableToConnectToDbException: Unable to obtain connection from database: FATAL: password authentication failed for user "janidubomal"
+-------------------------------------------------------------------------------------------------------
+SQL State  : 28P01
+Error Code : 0
+Message    : FATAL: password authentication failed for user "janidubomal"
+
+	at org.flywaydb.core.internal.jdbc.JdbcUtils.openConnection(JdbcUtils.java:78) ~[flyway-core-12.4.0.jar:na]
+	at org.flywaydb.core.internal.jdbc.JdbcConnectionFactory.<init>(JdbcConnectionFactory.java:76) ~[flyway-core-12.4.0.jar:na]
+	at org.flywaydb.core.FlywayExecutor.init(FlywayExecutor.java:275) ~[flyway-core-12.4.0.jar:na]
+	at org.flywaydb.core.FlywayExecutor.execute(FlywayExecutor.java:120) ~[flyway-core-12.4.0.jar:na]
+	at org.flywaydb.core.Flyway.migrate(Flyway.java:181) ~[flyway-core-12.4.0.jar:na]
+	at org.springframework.boot.flyway.autoconfigure.FlywayMigrationInitializer.afterPropertiesSet(FlywayMigrationInitializer.java:67) ~[spring-boot-flyway-4.1.1.jar:4.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1862) ~[spring-beans-7.0.9.jar:7.0.9]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1811) ~[spring-beans-7.0.9.jar:7.0.9]
+	... 20 common frames omitted
+Caused by: org.postgresql.util.PSQLException: FATAL: password authentication failed for user "janidubomal"
+	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:837) ~[postgresql-42.7.13.jar:42.7.13]
+	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:309) ~[postgresql-42.7.13.jar:42.7.13]
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:367) ~[postgresql-42.7.13.jar:42.7.13]
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:52) ~[postgresql-42.7.13.jar:42.7.13]
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:295) ~[postgresql-42.7.13.jar:42.7.13]
+	at org.postgresql.Driver.makeConnection(Driver.java:437) ~[postgresql-42.7.13.jar:42.7.13]
+	at org.postgresql.Driver.connect(Driver.java:305) ~[postgresql-42.7.13.jar:42.7.13]
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:144) ~[HikariCP-7.0.2.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:373) ~[HikariCP-7.0.2.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:210) ~[HikariCP-7.0.2.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:488) ~[HikariCP-7.0.2.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:576) ~[HikariCP-7.0.2.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:97) ~[HikariCP-7.0.2.jar:na]
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:111) ~[HikariCP-7.0.2.jar:na]
+	at org.flywaydb.core.internal.jdbc.JdbcUtils.openConnection(JdbcUtils.java:73) ~[flyway-core-12.4.0.jar:na]
+	... 27 common frames omitted
+
+2026-10-10T18:52:48.910+05:30  INFO 20589 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : Starting TaskflowApplication using Java 22.0.2 with PID 20589 (/Users/janidubomal/Downloads/taskflow/target/classes started by janidubomal in /Users/janidubomal/Downloads/taskflow)
+2026-10-10T18:52:48.911+05:30 DEBUG 20589 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-10-10T18:52:48.911+05:30  INFO 20589 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : The following 1 profile is active: "dev"
+2026-10-10T18:52:48.930+05:30  INFO 20589 --- [taskflow] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-10-10T18:52:48.931+05:30  INFO 20589 --- [taskflow] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-10-10T18:52:49.275+05:30  INFO 20589 --- [taskflow] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-10T18:52:49.293+05:30  INFO 20589 --- [taskflow] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 14 ms. Found 1 JPA repository interface.
+2026-10-10T18:52:49.517+05:30  INFO 20589 --- [taskflow] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-10-10T18:52:49.523+05:30  INFO 20589 --- [taskflow] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-10T18:52:49.523+05:30  INFO 20589 --- [taskflow] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-10-10T18:52:49.538+05:30  INFO 20589 --- [taskflow] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 607 ms
+2026-10-10T18:52:49.662+05:30  INFO 20589 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-10T18:52:50.104+05:30  INFO 20589 --- [taskflow] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5214c472
+2026-10-10T18:52:50.106+05:30  INFO 20589 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-10T18:52:50.138+05:30  INFO 20589 --- [taskflow] [restartedMain] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:5432/taskflow (PostgreSQL 17.2)
+2026-10-10T18:52:50.186+05:30  INFO 20589 --- [taskflow] [restartedMain] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.016s)
+2026-10-10T18:52:50.210+05:30  INFO 20589 --- [taskflow] [restartedMain] o.f.core.internal.command.DbMigrate      : Current version of schema "public": 2
+2026-10-10T18:52:50.212+05:30  INFO 20589 --- [taskflow] [restartedMain] o.f.core.internal.command.DbMigrate      : Schema "public" is up to date. No migration necessary.
+2026-10-10T18:52:50.256+05:30  INFO 20589 --- [taskflow] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-10-10T18:52:50.286+05:30  INFO 20589 --- [taskflow] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-10-10T18:52:50.734+05:30  INFO 20589 --- [taskflow] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-10T18:52:50.776+05:30  INFO 20589 --- [taskflow] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/taskflow]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.2
+	Default catalog/schema: taskflow/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-10T18:52:51.199+05:30  INFO 20589 --- [taskflow] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-10T18:52:51.228+05:30  INFO 20589 --- [taskflow] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T18:52:51.261+05:30  INFO 20589 --- [taskflow] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-10-10T18:52:51.375+05:30  WARN 20589 --- [taskflow] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-10-10T18:52:51.663+05:30  INFO 20589 --- [taskflow] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 4 endpoints beneath base path '/actuator'
+2026-10-10T18:52:51.693+05:30  INFO 20589 --- [taskflow] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-10-10T18:52:51.698+05:30  INFO 20589 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : Started TaskflowApplication in 2.956 seconds (process running for 3.12)
+2026-10-10T18:52:51.729+05:30  WARN 20589 --- [taskflow] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-10-10T18:52:51.729+05:30  WARN 20589 --- [taskflow] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-10-10T18:52:56.818+05:30  INFO 20589 --- [taskflow] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-10T18:52:56.819+05:30  INFO 20589 --- [taskflow] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-10T18:52:56.822+05:30  INFO 20589 --- [taskflow] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2026-10-10T18:52:57.109+05:30  INFO 20589 --- [taskflow] [http-nio-8080-exec-4] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 128 ms
+2026-10-10T19:06:36.048+05:30  INFO 20589 --- [taskflow] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-10-10T19:06:36.054+05:30  INFO 20589 --- [taskflow] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-10-10T19:06:36.062+05:30  INFO 20589 --- [taskflow] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T19:06:36.069+05:30  INFO 20589 --- [taskflow] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-10-10T19:06:36.071+05:30  INFO 20589 --- [taskflow] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-10-10T19:06:42.341+05:30  INFO 21218 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : Starting TaskflowApplication using Java 22.0.2 with PID 21218 (/Users/janidubomal/Downloads/taskflow/target/classes started by janidubomal in /Users/janidubomal/Downloads/taskflow)
+2026-10-10T19:06:42.343+05:30 DEBUG 21218 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-10-10T19:06:42.343+05:30  INFO 21218 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : The following 1 profile is active: "dev"
+2026-10-10T19:06:42.363+05:30  INFO 21218 --- [taskflow] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-10-10T19:06:42.363+05:30  INFO 21218 --- [taskflow] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-10-10T19:06:42.734+05:30  INFO 21218 --- [taskflow] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-10T19:06:42.752+05:30  INFO 21218 --- [taskflow] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 14 ms. Found 1 JPA repository interface.
+2026-10-10T19:06:42.978+05:30  INFO 21218 --- [taskflow] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-10-10T19:06:42.985+05:30  INFO 21218 --- [taskflow] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-10T19:06:42.985+05:30  INFO 21218 --- [taskflow] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-10-10T19:06:42.998+05:30  INFO 21218 --- [taskflow] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 635 ms
+2026-10-10T19:06:43.121+05:30  INFO 21218 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-10T19:06:43.202+05:30  INFO 21218 --- [taskflow] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@ebfb604
+2026-10-10T19:06:43.203+05:30  INFO 21218 --- [taskflow] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-10T19:06:43.218+05:30  INFO 21218 --- [taskflow] [restartedMain] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:5432/taskflow (PostgreSQL 17.2)
+2026-10-10T19:06:43.250+05:30  INFO 21218 --- [taskflow] [restartedMain] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.012s)
+2026-10-10T19:06:43.270+05:30  INFO 21218 --- [taskflow] [restartedMain] o.f.core.internal.command.DbMigrate      : Current version of schema "public": 2
+2026-10-10T19:06:43.271+05:30  INFO 21218 --- [taskflow] [restartedMain] o.f.core.internal.command.DbMigrate      : Schema "public" is up to date. No migration necessary.
+2026-10-10T19:06:43.306+05:30  INFO 21218 --- [taskflow] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-10-10T19:06:43.337+05:30  INFO 21218 --- [taskflow] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-10-10T19:06:43.511+05:30  INFO 21218 --- [taskflow] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-10T19:06:43.549+05:30  INFO 21218 --- [taskflow] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/taskflow]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.2
+	Default catalog/schema: taskflow/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-10T19:06:43.875+05:30  INFO 21218 --- [taskflow] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-10T19:06:43.905+05:30  INFO 21218 --- [taskflow] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T19:06:43.939+05:30  INFO 21218 --- [taskflow] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-10-10T19:06:44.042+05:30  WARN 21218 --- [taskflow] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-10-10T19:06:44.227+05:30  INFO 21218 --- [taskflow] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 4 endpoints beneath base path '/actuator'
+2026-10-10T19:06:44.254+05:30  INFO 21218 --- [taskflow] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-10-10T19:06:44.262+05:30  INFO 21218 --- [taskflow] [restartedMain] c.example.taskflow.TaskflowApplication   : Started TaskflowApplication in 2.12 seconds (process running for 2.309)
+2026-10-10T19:06:44.293+05:30  WARN 21218 --- [taskflow] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-10-10T19:06:44.293+05:30  WARN 21218 --- [taskflow] [restartedMain] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-10-10T19:06:55.544+05:30  INFO 21218 --- [taskflow] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-10T19:06:55.545+05:30  INFO 21218 --- [taskflow] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-10T19:06:55.548+05:30  INFO 21218 --- [taskflow] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-10-10T19:06:55.805+05:30  INFO 21218 --- [taskflow] [http-nio-8080-exec-4] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 144 ms
+2026-10-10T19:08:07.402+05:30  INFO 21447 --- [taskflow] [main] c.e.t.repository.TaskRepositoryTest      : Starting TaskRepositoryTest using Java 22.0.2 with PID 21447 (started by janidubomal in /Users/janidubomal/Downloads/taskflow)
+2026-10-10T19:08:07.403+05:30 DEBUG 21447 --- [taskflow] [main] c.e.t.repository.TaskRepositoryTest      : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-10-10T19:08:07.403+05:30  INFO 21447 --- [taskflow] [main] c.e.t.repository.TaskRepositoryTest      : No active profile set, falling back to 1 default profile: "dev"
+2026-10-10T19:08:07.561+05:30  INFO 21447 --- [taskflow] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-10T19:08:07.584+05:30  INFO 21447 --- [taskflow] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 18 ms. Found 1 JPA repository interface.
+2026-10-10T19:08:07.610+05:30  INFO 21447 --- [taskflow] [main] beddedDataSourceBeanFactoryPostProcessor : Replacing 'dataSource' DataSource bean with embedded version
+2026-10-10T19:08:07.652+05:30  INFO 21447 --- [taskflow] [main] o.s.j.d.e.EmbeddedDatabaseFactory        : Starting embedded database: url='jdbc:h2:mem:8a7549df-d8b2-46d2-8533-c4004072dc1b;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false', username='sa'
+2026-10-10T19:08:07.782+05:30  INFO 21447 --- [taskflow] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-10-10T19:08:07.818+05:30  INFO 21447 --- [taskflow] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-10-10T19:08:07.998+05:30  INFO 21447 --- [taskflow] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-10T19:08:08.034+05:30  INFO 21447 --- [taskflow] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:8a7549df-d8b2-46d2-8533-c4004072dc1b]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: 8A7549DF-D8B2-46D2-8533-C4004072DC1B/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-10T19:08:08.375+05:30  INFO 21447 --- [taskflow] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-10T19:08:08.389+05:30  INFO 21447 --- [taskflow] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T19:08:08.430+05:30  INFO 21447 --- [taskflow] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-10-10T19:08:08.508+05:30  INFO 21447 --- [taskflow] [main] c.e.t.repository.TaskRepositoryTest      : Started TaskRepositoryTest in 1.293 seconds (process running for 1.942)
+2026-10-10T19:08:09.137+05:30  INFO 21447 --- [taskflow] [main] org.testcontainers.images.PullPolicy     : Image pull policy will be performed by: DefaultPullPolicy()
+2026-10-10T19:08:09.138+05:30  INFO 21447 --- [taskflow] [main] o.t.utility.ImageNameSubstitutor         : Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+2026-10-10T19:08:09.145+05:30  INFO 21447 --- [taskflow] [main] org.testcontainers.DockerClientFactory   : Testcontainers version: 2.0.5
+2026-10-10T19:08:09.260+05:30  INFO 21447 --- [taskflow] [main] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.UnixSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+2026-10-10T19:08:11.214+05:30  INFO 21447 --- [taskflow] [main] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Unix socket (unix:///var/run/docker.sock)
+2026-10-10T19:08:11.216+05:30  INFO 21447 --- [taskflow] [main] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+2026-10-10T19:08:11.225+05:30  INFO 21447 --- [taskflow] [main] org.testcontainers.DockerClientFactory   : Connected to docker: 
+  Server Version: 27.4.0
+  API Version: 1.47
+  Operating System: Docker Desktop
+  Total Memory: 3919 MB
+  Labels: 
+    com.docker.desktop.address=unix:///Users/janidubomal/Library/Containers/com.docker.docker/Data/docker-cli.sock
+2026-10-10T19:08:11.249+05:30  INFO 21447 --- [taskflow] [main] tc.testcontainers/ryuk:0.14.0            : Creating container for image: testcontainers/ryuk:0.14.0
+2026-10-10T19:08:11.497+05:30  INFO 21447 --- [taskflow] [main] tc.testcontainers/ryuk:0.14.0            : Container testcontainers/ryuk:0.14.0 is starting: 861d31c03fd9a728bb17ce280fbf7048dc46ed862417032cca14fd0435b16574
+2026-10-10T19:08:11.787+05:30  INFO 21447 --- [taskflow] [main] tc.testcontainers/ryuk:0.14.0            : Container testcontainers/ryuk:0.14.0 started in PT0.538529S
+2026-10-10T19:08:11.794+05:30  INFO 21447 --- [taskflow] [main] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+2026-10-10T19:08:11.794+05:30  INFO 21447 --- [taskflow] [main] org.testcontainers.DockerClientFactory   : Checking the system...
+2026-10-10T19:08:11.794+05:30  INFO 21447 --- [taskflow] [main] org.testcontainers.DockerClientFactory   : ✔︎ Docker server version should be at least 1.6.0
+2026-10-10T19:08:11.794+05:30  INFO 21447 --- [taskflow] [main] tc.postgres:16-alpine                    : Creating container for image: postgres:16-alpine
+2026-10-10T19:08:11.823+05:30  INFO 21447 --- [taskflow] [main] tc.postgres:16-alpine                    : Container postgres:16-alpine is starting: db444f05ca08b42d7c839bca13d85d921c2e8d3ccdc49cf8156f25aa3b0bff52
+2026-10-10T19:08:13.095+05:30  INFO 21447 --- [taskflow] [main] tc.postgres:16-alpine                    : Container postgres:16-alpine started in PT1.30067S
+2026-10-10T19:08:13.106+05:30  INFO 21447 --- [taskflow] [main] tc.postgres:16-alpine                    : Container is started (JDBC URL: jdbc:postgresql://localhost:53658/test?loggerLevel=OFF)
+2026-10-10T19:08:13.115+05:30  INFO 21447 --- [taskflow] [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.taskflow.integration.TaskRepositoryPostgresIntegrationTest]: TaskRepositoryPostgresIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-10T19:08:13.136+05:30  INFO 21447 --- [taskflow] [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.taskflow.TaskflowApplication for test class com.example.taskflow.integration.TaskRepositoryPostgresIntegrationTest
+2026-10-10T19:08:13.140+05:30  INFO 21447 --- [taskflow] [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.taskflow.integration.TaskRepositoryPostgresIntegrationTest]: TaskRepositoryPostgresIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-10T19:08:13.141+05:30  INFO 21447 --- [taskflow] [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.taskflow.TaskflowApplication for test class com.example.taskflow.integration.TaskRepositoryPostgresIntegrationTest
+2026-10-10T19:08:13.151+05:30  INFO 21447 --- [taskflow] [main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+2026-10-10T19:08:13.174+05:30  INFO 21447 --- [taskflow] [main] .i.TaskRepositoryPostgresIntegrationTest : Starting TaskRepositoryPostgresIntegrationTest using Java 22.0.2 with PID 21447 (started by janidubomal in /Users/janidubomal/Downloads/taskflow)
+2026-10-10T19:08:13.174+05:30 DEBUG 21447 --- [taskflow] [main] .i.TaskRepositoryPostgresIntegrationTest : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-10-10T19:08:13.174+05:30  INFO 21447 --- [taskflow] [main] .i.TaskRepositoryPostgresIntegrationTest : No active profile set, falling back to 1 default profile: "dev"
+2026-10-10T19:08:13.515+05:30  INFO 21447 --- [taskflow] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-10T19:08:13.524+05:30  INFO 21447 --- [taskflow] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 3 ms. Found 1 JPA repository interface.
+2026-10-10T19:08:13.887+05:30  INFO 21447 --- [taskflow] [main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:53658/test?loggerLevel=OFF (PostgreSQL 16.15)
+2026-10-10T19:08:13.933+05:30  INFO 21447 --- [taskflow] [main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-10-10T19:08:13.935+05:30  INFO 21447 --- [taskflow] [main] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.009s)
+2026-10-10T19:08:13.941+05:30  INFO 21447 --- [taskflow] [main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-10-10T19:08:13.981+05:30  INFO 21447 --- [taskflow] [main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-10-10T19:08:13.985+05:30  INFO 21447 --- [taskflow] [main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - create tasks table"
+2026-10-10T19:08:13.997+05:30  INFO 21447 --- [taskflow] [main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "2 - add priority to tasks"
+2026-10-10T19:08:14.005+05:30  INFO 21447 --- [taskflow] [main] o.f.core.internal.command.DbMigrate      : Successfully applied 2 migrations to schema "public", now at version v2 (execution time 00:00.007s)
+2026-10-10T19:08:14.015+05:30  INFO 21447 --- [taskflow] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-10-10T19:08:14.025+05:30  INFO 21447 --- [taskflow] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-10T19:08:14.026+05:30  INFO 21447 --- [taskflow] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-10T19:08:14.040+05:30  INFO 21447 --- [taskflow] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@682a00f8
+2026-10-10T19:08:14.040+05:30  INFO 21447 --- [taskflow] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-10T19:08:14.053+05:30  INFO 21447 --- [taskflow] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:53658/test?loggerLevel=OFF]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 16.15
+	Default catalog/schema: test/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-10T19:08:14.091+05:30  INFO 21447 --- [taskflow] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-10T19:08:14.108+05:30  INFO 21447 --- [taskflow] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T19:08:14.245+05:30  WARN 21447 --- [taskflow] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-10-10T19:08:14.531+05:30  INFO 21447 --- [taskflow] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 4 endpoints beneath base path '/actuator'
+2026-10-10T19:08:14.568+05:30  INFO 21447 --- [taskflow] [main] .i.TaskRepositoryPostgresIntegrationTest : Started TaskRepositoryPostgresIntegrationTest in 1.417 seconds (process running for 8.002)
+2026-10-10T19:08:14.612+05:30  WARN 21447 --- [taskflow] [main] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-10-10T19:08:14.612+05:30  WARN 21447 --- [taskflow] [main] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-10-10T19:08:14.903+05:30  INFO 21447 --- [taskflow] [main] tc.postgres:16-alpine                    : Creating container for image: postgres:16-alpine
+2026-10-10T19:08:15.009+05:30  INFO 21447 --- [taskflow] [main] tc.postgres:16-alpine                    : Container postgres:16-alpine is starting: ee02c252aca75f831bbb76592d2072b5ffd6fa786dabab8eb31db537c65ab14c
+2026-10-10T19:08:16.174+05:30  INFO 21447 --- [taskflow] [main] tc.postgres:16-alpine                    : Container postgres:16-alpine started in PT1.271054S
+2026-10-10T19:08:16.179+05:30  INFO 21447 --- [taskflow] [main] tc.postgres:16-alpine                    : Container is started (JDBC URL: jdbc:postgresql://localhost:53673/test?loggerLevel=OFF)
+2026-10-10T19:08:16.188+05:30  INFO 21447 --- [taskflow] [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.taskflow.integration.TaskApiIntegrationTest]: TaskApiIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-10T19:08:16.209+05:30  INFO 21447 --- [taskflow] [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.taskflow.TaskflowApplication for test class com.example.taskflow.integration.TaskApiIntegrationTest
+2026-10-10T19:08:16.212+05:30  INFO 21447 --- [taskflow] [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.taskflow.integration.TaskApiIntegrationTest]: TaskApiIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-10T19:08:16.217+05:30  INFO 21447 --- [taskflow] [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.taskflow.TaskflowApplication for test class com.example.taskflow.integration.TaskApiIntegrationTest
+2026-10-10T19:08:16.228+05:30  INFO 21447 --- [taskflow] [main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+2026-10-10T19:08:16.258+05:30  INFO 21447 --- [taskflow] [main] c.e.t.i.TaskApiIntegrationTest           : Starting TaskApiIntegrationTest using Java 22.0.2 with PID 21447 (started by janidubomal in /Users/janidubomal/Downloads/taskflow)
+2026-10-10T19:08:16.258+05:30 DEBUG 21447 --- [taskflow] [main] c.e.t.i.TaskApiIntegrationTest           : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-10-10T19:08:16.258+05:30  INFO 21447 --- [taskflow] [main] c.e.t.i.TaskApiIntegrationTest           : No active profile set, falling back to 1 default profile: "dev"
+2026-10-10T19:08:16.476+05:30  INFO 21447 --- [taskflow] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-10T19:08:16.484+05:30  INFO 21447 --- [taskflow] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 4 ms. Found 1 JPA repository interface.
+2026-10-10T19:08:16.683+05:30  INFO 21447 --- [taskflow] [main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:53673/test?loggerLevel=OFF (PostgreSQL 16.15)
+2026-10-10T19:08:16.720+05:30  INFO 21447 --- [taskflow] [main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-10-10T19:08:16.722+05:30  INFO 21447 --- [taskflow] [main] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.006s)
+2026-10-10T19:08:16.737+05:30  INFO 21447 --- [taskflow] [main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-10-10T19:08:16.787+05:30  INFO 21447 --- [taskflow] [main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-10-10T19:08:16.794+05:30  INFO 21447 --- [taskflow] [main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - create tasks table"
+2026-10-10T19:08:16.826+05:30  INFO 21447 --- [taskflow] [main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "2 - add priority to tasks"
+2026-10-10T19:08:16.849+05:30  INFO 21447 --- [taskflow] [main] o.f.core.internal.command.DbMigrate      : Successfully applied 2 migrations to schema "public", now at version v2 (execution time 00:00.024s)
+2026-10-10T19:08:16.882+05:30  INFO 21447 --- [taskflow] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-10-10T19:08:16.916+05:30  INFO 21447 --- [taskflow] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-10T19:08:16.917+05:30  INFO 21447 --- [taskflow] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-10-10T19:08:16.924+05:30  INFO 21447 --- [taskflow] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@d863a65
+2026-10-10T19:08:16.925+05:30  INFO 21447 --- [taskflow] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2026-10-10T19:08:16.930+05:30  INFO 21447 --- [taskflow] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:53673/test?loggerLevel=OFF]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 16.15
+	Default catalog/schema: test/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-10T19:08:16.953+05:30  INFO 21447 --- [taskflow] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-10T19:08:16.966+05:30  INFO 21447 --- [taskflow] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T19:08:17.001+05:30  WARN 21447 --- [taskflow] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-10-10T19:08:17.139+05:30  INFO 21447 --- [taskflow] [main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-10-10T19:08:17.139+05:30  INFO 21447 --- [taskflow] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-10T19:08:17.140+05:30  INFO 21447 --- [taskflow] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 4 endpoints beneath base path '/actuator'
+2026-10-10T19:08:17.142+05:30  INFO 21447 --- [taskflow] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 3 ms
+2026-10-10T19:08:17.153+05:30  INFO 21447 --- [taskflow] [main] c.e.t.i.TaskApiIntegrationTest           : Started TaskApiIntegrationTest in 0.925 seconds (process running for 10.586)
+2026-10-10T19:08:17.153+05:30  WARN 21447 --- [taskflow] [main] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-10-10T19:08:17.153+05:30  WARN 21447 --- [taskflow] [main] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-10-10T19:08:17.239+05:30  INFO 21447 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Creating task with title: Learn Spring Boot
+2026-10-10T19:08:17.245+05:30  INFO 21447 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Task created successfully with id: 1
+2026-10-10T19:08:17.287+05:30  INFO 21447 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Creating task with title: Learn Docker
+2026-10-10T19:08:17.288+05:30  INFO 21447 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Task created successfully with id: 2
+2026-10-10T19:08:17.328+05:30 DEBUG 21447 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Finding task with id: 999
+2026-10-10T19:08:17.330+05:30  WARN 21447 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Task not found with id: 999
+2026-10-10T19:08:17.346+05:30  INFO 21447 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Creating task with title: Learn Testcontainers
+2026-10-10T19:08:17.348+05:30  INFO 21447 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Task created successfully with id: 3
+2026-10-10T19:08:17.403+05:30  INFO 21447 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Creating task with title: Learn Integration Testing
+2026-10-10T19:08:17.404+05:30  INFO 21447 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Task created successfully with id: 4
+2026-10-10T19:08:17.414+05:30  INFO 21447 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Creating task with title: Delete this task
+2026-10-10T19:08:17.415+05:30  INFO 21447 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Task created successfully with id: 5
+2026-10-10T19:08:17.427+05:30  INFO 21447 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Creating task with title: Finish Spring Testing
+2026-10-10T19:08:17.428+05:30  INFO 21447 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Task created successfully with id: 6
+2026-10-10T19:08:17.435+05:30 DEBUG 21447 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Finding task with id: 6
+2026-10-10T19:08:17.604+05:30  INFO 21447 --- [taskflow] [main] tc.postgres:16-alpine                    : Creating container for image: postgres:16-alpine
+2026-10-10T19:08:17.637+05:30  INFO 21447 --- [taskflow] [main] tc.postgres:16-alpine                    : Container postgres:16-alpine is starting: 4dc27e69c58464d69c5db7c08f82ea83e9e3a694a2e12b43065cd40924591452
+2026-10-10T19:08:18.594+05:30  INFO 21447 --- [taskflow] [main] tc.postgres:16-alpine                    : Container postgres:16-alpine started in PT0.990177S
+2026-10-10T19:08:18.600+05:30  INFO 21447 --- [taskflow] [main] tc.postgres:16-alpine                    : Container is started (JDBC URL: jdbc:postgresql://localhost:53689/test?loggerLevel=OFF)
+2026-10-10T19:08:18.610+05:30  INFO 21447 --- [taskflow] [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.taskflow.TaskflowApplicationTests]: TaskflowApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-10T19:08:18.636+05:30  INFO 21447 --- [taskflow] [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.taskflow.TaskflowApplication for test class com.example.taskflow.TaskflowApplicationTests
+2026-10-10T19:08:18.638+05:30  INFO 21447 --- [taskflow] [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.taskflow.TaskflowApplicationTests]: TaskflowApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-10T19:08:18.641+05:30  INFO 21447 --- [taskflow] [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.taskflow.TaskflowApplication for test class com.example.taskflow.TaskflowApplicationTests
+2026-10-10T19:08:18.655+05:30  INFO 21447 --- [taskflow] [main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+2026-10-10T19:08:18.675+05:30  INFO 21447 --- [taskflow] [main] c.e.taskflow.TaskflowApplicationTests    : Starting TaskflowApplicationTests using Java 22.0.2 with PID 21447 (started by janidubomal in /Users/janidubomal/Downloads/taskflow)
+2026-10-10T19:08:18.675+05:30 DEBUG 21447 --- [taskflow] [main] c.e.taskflow.TaskflowApplicationTests    : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-10-10T19:08:18.675+05:30  INFO 21447 --- [taskflow] [main] c.e.taskflow.TaskflowApplicationTests    : No active profile set, falling back to 1 default profile: "dev"
+2026-10-10T19:08:18.771+05:30  INFO 21447 --- [taskflow] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-10T19:08:18.778+05:30  INFO 21447 --- [taskflow] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 4 ms. Found 1 JPA repository interface.
+2026-10-10T19:08:18.877+05:30  INFO 21447 --- [taskflow] [main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:53689/test?loggerLevel=OFF (PostgreSQL 16.15)
+2026-10-10T19:08:18.885+05:30  INFO 21447 --- [taskflow] [main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-10-10T19:08:18.885+05:30  INFO 21447 --- [taskflow] [main] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.002s)
+2026-10-10T19:08:18.890+05:30  INFO 21447 --- [taskflow] [main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-10-10T19:08:18.913+05:30  INFO 21447 --- [taskflow] [main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-10-10T19:08:18.914+05:30  INFO 21447 --- [taskflow] [main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - create tasks table"
+2026-10-10T19:08:18.925+05:30  INFO 21447 --- [taskflow] [main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "2 - add priority to tasks"
+2026-10-10T19:08:18.930+05:30  INFO 21447 --- [taskflow] [main] o.f.core.internal.command.DbMigrate      : Successfully applied 2 migrations to schema "public", now at version v2 (execution time 00:00.006s)
+2026-10-10T19:08:18.937+05:30  INFO 21447 --- [taskflow] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-10-10T19:08:18.948+05:30  INFO 21447 --- [taskflow] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-10T19:08:18.948+05:30  INFO 21447 --- [taskflow] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2026-10-10T19:08:18.956+05:30  INFO 21447 --- [taskflow] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection org.postgresql.jdbc.PgConnection@8f5dcbc
+2026-10-10T19:08:18.956+05:30  INFO 21447 --- [taskflow] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2026-10-10T19:08:18.961+05:30  INFO 21447 --- [taskflow] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:53689/test?loggerLevel=OFF]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 16.15
+	Default catalog/schema: test/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-10T19:08:19.012+05:30  INFO 21447 --- [taskflow] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-10T19:08:19.021+05:30  INFO 21447 --- [taskflow] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T19:08:19.049+05:30  WARN 21447 --- [taskflow] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-10-10T19:08:19.093+05:30  INFO 21447 --- [taskflow] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 4 endpoints beneath base path '/actuator'
+2026-10-10T19:08:19.106+05:30  INFO 21447 --- [taskflow] [main] c.e.taskflow.TaskflowApplicationTests    : Started TaskflowApplicationTests in 0.452 seconds (process running for 12.539)
+2026-10-10T19:08:19.106+05:30  WARN 21447 --- [taskflow] [main] o.s.core.events.SpringDocAppInitializer  : SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-10-10T19:08:19.106+05:30  WARN 21447 --- [taskflow] [main] o.s.core.events.SpringDocAppInitializer  : SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-10-10T19:08:19.282+05:30  INFO 21447 --- [taskflow] [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.taskflow.controller.TaskControllerTest]: TaskControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-10T19:08:19.294+05:30  INFO 21447 --- [taskflow] [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.taskflow.TaskflowApplication for test class com.example.taskflow.controller.TaskControllerTest
+2026-10-10T19:08:19.294+05:30  INFO 21447 --- [taskflow] [main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.taskflow.controller.TaskControllerTest]: TaskControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-10T19:08:19.297+05:30  INFO 21447 --- [taskflow] [main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.taskflow.TaskflowApplication for test class com.example.taskflow.controller.TaskControllerTest
+2026-10-10T19:08:19.299+05:30  INFO 21447 --- [taskflow] [main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+2026-10-10T19:08:19.335+05:30  INFO 21447 --- [taskflow] [main] c.e.t.controller.TaskControllerTest      : Starting TaskControllerTest using Java 22.0.2 with PID 21447 (started by janidubomal in /Users/janidubomal/Downloads/taskflow)
+2026-10-10T19:08:19.335+05:30 DEBUG 21447 --- [taskflow] [main] c.e.t.controller.TaskControllerTest      : Running with Spring Boot v4.1.1, Spring v7.0.9
+2026-10-10T19:08:19.335+05:30  INFO 21447 --- [taskflow] [main] c.e.t.controller.TaskControllerTest      : No active profile set, falling back to 1 default profile: "dev"
+2026-10-10T19:08:19.654+05:30  INFO 21447 --- [taskflow] [main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-10-10T19:08:19.654+05:30  INFO 21447 --- [taskflow] [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-10T19:08:19.655+05:30  INFO 21447 --- [taskflow] [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-10-10T19:08:19.677+05:30  INFO 21447 --- [taskflow] [main] c.e.t.controller.TaskControllerTest      : Started TaskControllerTest in 0.378 seconds (process running for 13.111)
+2026-10-10T19:08:20.157+05:30 DEBUG 21447 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Finding task with id: 1
+2026-10-10T19:08:20.189+05:30  INFO 21447 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Creating task with title: Learn Mockito
+2026-10-10T19:08:20.190+05:30  INFO 21447 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Task created successfully with id: 1
+2026-10-10T19:08:20.200+05:30 DEBUG 21447 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Finding task with id: 1
+2026-10-10T19:08:20.205+05:30 DEBUG 21447 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Finding task with id: 999
+2026-10-10T19:08:20.206+05:30  WARN 21447 --- [taskflow] [main] c.example.taskflow.services.TaskService  : Task not found with id: 999
+2026-10-10T19:08:20.233+05:30  INFO 21447 --- [taskflow] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T19:08:20.251+05:30  INFO 21447 --- [taskflow] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T19:08:20.253+05:30  INFO 21447 --- [taskflow] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-10-10T19:08:20.255+05:30  INFO 21447 --- [taskflow] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-10-10T19:08:20.267+05:30  INFO 21447 --- [taskflow] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T19:08:20.268+05:30  INFO 21447 --- [taskflow] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2026-10-10T19:08:20.270+05:30  INFO 21447 --- [taskflow] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2026-10-10T19:08:20.283+05:30  INFO 21447 --- [taskflow] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-10-10T19:08:20.294+05:30  INFO 21447 --- [taskflow] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2026-10-10T19:08:20.505+05:30  INFO 21447 --- [taskflow] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
