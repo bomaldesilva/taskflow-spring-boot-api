@@ -9,41 +9,100 @@ import jakarta.validation.constraints.Min;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
 @Service
 public class TaskService {
 
     private final TaskRepository taskRepository;
 
-    public TaskService(TaskRepository taskRepository) {
+    public TaskService(
+            TaskRepository taskRepository,
+            MeterRegistry meterRegistry) {
+
         this.taskRepository = taskRepository;
+
+        this.taskCreatedCounter =
+                Counter.builder("taskflow.tasks.created")
+                        .description(
+                                "Number of tasks created"
+                        )
+                        .register(meterRegistry);
     }
 
     public List<Task> getAllTasks() {
         return taskRepository.findAll();
     }
 
+    private final Counter taskCreatedCounter;
+
     public Task getTaskById(Long id) {
+
+        log.debug(
+                "Finding task with id: {}",
+                id
+        );
 
         return taskRepository
                 .findById(id)
-                .orElseThrow(
-                        () -> new TaskNotFoundException(id)
-                );
+                .orElseThrow(() -> {
+
+                    log.warn(
+                            "Task not found with id: {}",
+                            id
+                    );
+
+                    return new TaskNotFoundException(id);
+                });
     }
 
-    public Task createTask(
-            String title,
-            String description, @Min(1) @Max(5) Integer priority) {
 
-        Task task = new Task();
+        private static final Logger log =
+                LoggerFactory.getLogger(TaskService.class);
 
-        task.setTitle(title);
-        task.setDescription(description);
-        task.setStatus(TaskStatus.TODO);
-        task.setPriority(priority);
-        return taskRepository.save(task);
-    }
+//    public Task createTask(
+//            String title,
+//            String description, @Min(1) @Max(5) Integer priority) {
+//
+//        Task task = new Task();
+//
+//        task.setTitle(title);
+//        task.setDescription(description);
+//        task.setStatus(TaskStatus.TODO);
+//        task.setPriority(priority);
+//        return taskRepository.save(task);
+//    }
+    //log added
+public Task createTask(
+        String title,
+        String description,
+        Integer priority) {
+
+    log.info(
+            "Creating task with title: {}",
+            title
+    );
+
+    Task task = new Task();
+
+    task.setTitle(title);
+    task.setDescription(description);
+    task.setStatus(TaskStatus.TODO);
+    task.setPriority(priority);
+
+    Task savedTask = taskRepository.save(task);
+
+    log.info(
+            "Task created successfully with id: {}",
+            savedTask.getId()
+    );
+
+    taskCreatedCounter.increment();
+
+    return savedTask;
+}
     public Task updateTask(
             Long id,
             String title,
@@ -88,4 +147,5 @@ public class TaskService {
         return taskRepository
                 .findByTitleContainingIgnoreCase(title);
     }
+
 }

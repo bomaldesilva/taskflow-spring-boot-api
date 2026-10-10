@@ -5,6 +5,9 @@ import com.example.taskflow.model.Task;
 import com.example.taskflow.model.TaskStatus;
 import com.example.taskflow.repository.TaskRepository;
 
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -23,9 +26,18 @@ class TaskServiceTest {
 
     @Mock
     private TaskRepository taskRepository;
-
-    @InjectMocks
+    private MeterRegistry meterRegistry;
     private TaskService taskService;
+    @BeforeEach
+    void setUp() {
+
+        meterRegistry = new SimpleMeterRegistry();
+
+        taskService = new TaskService(
+                taskRepository,
+                meterRegistry
+        );
+    }
     @Test
     void shouldReturnTaskWhenTaskExists() {
 
