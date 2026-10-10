@@ -13,7 +13,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
+import org.springframework.transaction.annotation.Transactional;
+
 @Service
+@Transactional(readOnly = true)
 public class TaskService {
 
     private final TaskRepository taskRepository;
@@ -75,6 +78,7 @@ public class TaskService {
 //        return taskRepository.save(task);
 //    }
     //log added
+@Transactional
 public Task createTask(
         String title,
         String description,
@@ -103,12 +107,13 @@ public Task createTask(
 
     return savedTask;
 }
+    @Transactional
     public Task updateTask(
             Long id,
             String title,
             String description,
-            TaskStatus status
-            ) {
+            TaskStatus status,
+            @Min(1) @Max(5) Integer priority) {
 
         Task task = getTaskById(id);
 
@@ -117,6 +122,7 @@ public Task createTask(
         task.setStatus(status);
         return taskRepository.save(task);
     }
+    @Transactional
     public Task deleteTask(Long id) {
 
         if (!taskRepository.existsById(id)) {
@@ -126,6 +132,7 @@ public Task createTask(
         taskRepository.deleteById(id);
         return null;
     }
+    @Transactional
     public Task updateStatus(
             Long id,
             TaskStatus status) {

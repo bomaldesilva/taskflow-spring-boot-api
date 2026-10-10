@@ -149,17 +149,18 @@ class TaskApiIntegrationTest {
 
         mockMvc.perform(
                         patch("/api/v1/tasks/{id}/status", id)
-                                .param(
-                                        "status",
-                                        "COMPLETED"
-                                )
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content("""
+                        {
+                          "status": "COMPLETED"
+                        }
+                        """)
                 )
                 .andExpect(status().isOk())
                 .andExpect(
                         jsonPath("$.status")
                                 .value("COMPLETED")
                 );
-
         var task =
                 taskRepository
                         .findById(id)

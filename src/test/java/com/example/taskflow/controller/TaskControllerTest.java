@@ -1,6 +1,7 @@
 package com.example.taskflow.controller;
 
 import com.example.taskflow.exception.TaskNotFoundException;
+import com.example.taskflow.mappers.TaskMapper;
 import com.example.taskflow.model.Task;
 import com.example.taskflow.model.TaskStatus;
 import com.example.taskflow.services.TaskService;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
@@ -20,6 +22,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(TaskController.class)
+@Import(TaskMapper.class)
 class TaskControllerTest {
 
     @Autowired
@@ -170,10 +173,12 @@ class TaskControllerTest {
 
         mockMvc.perform(
                         patch("/api/v1/tasks/1/status")
-                                .param(
-                                        "status",
-                                        "COMPLETED"
-                                )
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content("""
+                        {
+                          "status": "COMPLETED"
+                        }
+                        """)
                 )
                 .andExpect(status().isOk())
                 .andExpect(
