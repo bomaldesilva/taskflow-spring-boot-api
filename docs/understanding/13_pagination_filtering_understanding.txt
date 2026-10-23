@@ -1,0 +1,67 @@
+TASKFLOW STAGE 13: PAGINATION AND FILTERING
+
+Purpose
+
+An unbounded task list becomes expensive as the database grows. Pagination requests one limited slice, while filtering asks PostgreSQL to select the matching records before returning that slice. This stage gives clients predictable list responses and useful totals without loading every task into Java memory.
+
+The API contract
+
+GET /api/v1/tasks now returns an object rather than the previous JSON array. This is a breaking response change: a client that previously read response[0] must read response.items[0]. Update existing consumers before using the new contract.
+
+Example response for three matching tasks, requesting the first two:
+
+{"items":[{"id":8,"title":"Learn Spring","description":null,"status":"TODO","priority":5},{"id":7,"title":"Practice Spring","description":null,"status":"TODO","priority":5}],"page":0,"size":2,"totalElements":3,"totalPages":2}
+
+items contains TaskResponse objects. page is zero-based, so page=0 is the first page. size is the requested page capacity; the final page can contain fewer records. totalElements counts all records matching the filters, rather than just the current slice. totalPages is the number of pages for that count and size. With no matches, items is empty and both totals are zero. A valid page beyond the final page returns empty items while retaining accurate totals.
+
+Defaults and validation
+
+The defaults are page=0, size=20, and sort=id,desc. The maximum size is 100 and the minimum is 1. Negative pages, invalid numbers, unsupported enum values, and invalid sorts return 400. Extremely large page offsets are also rejected: page multiplied by size must fit within Integer.MAX_VALUE, the pagination offset supported by the JPA query path.
+
+Supported statuses are TODO, IN_PROGRESS, and COMPLETED. Priority is optional: stored tasks may have null priority, and omitting the priority filter includes those tasks. A supplied priority filter must be an integer from 1 to 5 and matches that exact value. The API does not define a portable cross-database placement for null priorities when sorting; tests avoid depending on an unspecified null-ordering policy.
+
+Combining filters
+
+status, priority, and title are optional and combine with AND. For example, status=TODO&priority=5&title=spring selects only tasks satisfying all three conditions. The title filter matches a case-insensitive substring. Leading and trailing spaces are trimmed; an empty or whitespace-only title means no title filter. The trimmed title cannot exceed 100 characters.
+
+SQL LIKE normally treats % and _ as wildcard symbols. Here they mean literal characters from the user's title. TaskListRequest escapes them and also escapes !, which the JPQL query declares as its escape character. Searching for 100% therefore finds that text, rather than every title starting with 100. Clients send ordinary title text; they do not need to create SQL patterns themselves.
+
+Sorting and stable pages
+
+Allowed sort fields are id, title, status, and priority. Supply sort=field,asc or sort=field,desc. If only the field is supplied, ascending order is used. Repeat the parameter to add another ordering rule: sort=priority,desc&sort=title,asc. Field names cannot repeat, unknown fields are rejected, and each sort value can contain only the field and optional direction. At most four distinct fields can be supplied.
+
+Different tasks can share the same priority or title. When id is absent from an explicit sort, the application appends id,asc as a unique tie-breaker. With no sort parameter, the default remains id,desc. An explicitly supplied ID direction is respected. Stable ordering makes unchanged data predictable across pages; concurrent inserts or edits can still shift offset-based page boundaries.
+
+How the code fits together
+
+TaskController receives the query parameters and preserves repeated sort values. TaskListRequest validates and normalizes them, builds a Pageable, and prepares the escaped title pattern. TaskService passes the query to TaskRepository.findMatchingTasks(). The repository uses JPQL optional predicates and database pagination. Spring Data produces a Page containing records and totals. TaskMapper maps the records to TaskResponse, and TaskPageResponse exposes the stable public envelope.
+
+Main changes are TaskController, TaskService, TaskRepository, TaskListRequest, TaskPageResponse, InvalidTaskQueryException, GlobalExceptionHandler, and the controller/integration tests. Dynamic specifications are deliberately left for stage 17. The current fixed filters already execute in the database.
+
+The older GET /api/v1/tasks/search?title=... and GET /api/v1/tasks/status/TODO routes remain available with arrays of TaskResponse. Their OpenAPI descriptions mark them deprecated and point callers to the paginated route. They remain unbounded compatibility routes, so new clients should use GET /api/v1/tasks with filters.
+
+Try the API
+
+Use the real token obtained from registration or login:
+
+export TASKFLOW_TOKEN='paste-the-returned-token-here'
+
+curl -sS --get http://localhost:8080/api/v1/tasks -H "Authorization: Bearer $TASKFLOW_TOKEN" --data-urlencode 'page=0' --data-urlencode 'size=2' --data-urlencode 'status=TODO' --data-urlencode 'priority=5' --data-urlencode 'title= spring ' --data-urlencode 'sort=priority,desc' --data-urlencode 'sort=id,asc'
+
+curl -sS --get http://localhost:8080/api/v1/tasks -H "Authorization: Bearer $TASKFLOW_TOKEN" --data-urlencode 'title=100%'
+
+curl -i --get http://localhost:8080/api/v1/tasks -H "Authorization: Bearer $TASKFLOW_TOKEN" --data-urlencode 'size=101'
+
+The last request should return 400. --data-urlencode safely encodes spaces and literal percent symbols in query values.
+
+Verification, exercises, and next stages
+
+TaskPaginationIntegrationTest checks defaults, bounded pages, first/final/empty/out-of-range results, combined filters, literal title characters, repeated sorts, ID tie-breakers, and invalid parameters against PostgreSQL. Controller and existing API tests now expect the envelope for the main list route.
+
+The fast suite passed 25 tests with zero failures or errors; PostgreSQL checks remain separate.
+
+Final verification on 23 October 2026: ./mvnw clean test passed with 91 tests, zero failures, zero errors, and zero skipped tests. All 41 TaskPaginationIntegrationTest cases passed against PostgreSQL, including filtering, literal %, _, ! and backslash searches, stable sorting, count metadata, oversized offsets, and invalid query values. Docker was recovered before this successful full run.
+
+Exercises: create five tasks and retrieve size=2 pages; compare items.length with totalElements; sort two equal-priority tasks; search for a title containing %. Explain why removing the ID tie-breaker makes pagination less predictable.
+
+Stage 13 does not isolate users. Authenticated users still access the shared task dataset. Stage 14 adds task-to-user relationships, and stage 15 scopes every list, search, lookup, and mutation to the authenticated owner. Complete those stages before shared use.

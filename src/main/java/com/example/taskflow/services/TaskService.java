@@ -1,12 +1,14 @@
 package com.example.taskflow.services;
 
 import com.example.taskflow.exception.TaskNotFoundException;
+import com.example.taskflow.dto.request.TaskListRequest;
 import com.example.taskflow.model.Task;
 import com.example.taskflow.model.TaskStatus;
 import com.example.taskflow.repository.TaskRepository;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import org.slf4j.Logger;
@@ -35,8 +37,9 @@ public class TaskService {
                         .register(meterRegistry);
     }
 
-    public List<Task> getAllTasks() {
-        return taskRepository.findAll();
+    public Page<Task> getTasks(TaskListRequest query) {
+        return taskRepository.findMatchingTasks(
+                query.status(), query.priority(), query.titlePattern(), query.pageable());
     }
 
     private final Counter taskCreatedCounter;
@@ -120,6 +123,7 @@ public Task createTask(
         task.setTitle(title);
         task.setDescription(description);
         task.setStatus(status);
+        task.setPriority(priority);
         return taskRepository.save(task);
     }
     @Transactional

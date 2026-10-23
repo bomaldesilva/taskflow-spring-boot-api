@@ -1,0 +1,61 @@
+TASKFLOW: BEFORE STARTING THE NEXT FEATURE
+
+Purpose
+
+This milestone repairs the foundation before adding more features. A request can appear successful while some data is never saved, and mock authentication can pass while real login tokens fail. The baseline connects the HTTP API, services, security configuration, and database tests so those problems become visible.
+
+The priority bug
+
+TaskService.updateTask() already received priority, but did not copy it onto the existing Task entity. The response could therefore keep the previous value. The service now calls setPriority(priority) before saving. The regression test updates a task and reads its stored database value afterward. Checking stored state matters: a mocked response alone cannot establish that persistence worked. Priority remains optional; an omitted or null priority is allowed, while supplied values must be between 1 and 5. PUT replaces the editable fields, so omitting priority clears it rather than preserving its previous value.
+
+Response objects and application layers
+
+TaskController now maps status-update, status-list, and title-search results to TaskResponse, just like the other task routes. A DTO is a small object describing the public API. A JPA entity describes database persistence. Keeping them separate prevents future relationships from accidentally exposing user entities or causing recursive JSON.
+
+Read the flow as: HTTP request -> controller -> service -> repository -> PostgreSQL. A request DTO carries validated input. The controller coordinates HTTP details, the service implements the operation, the repository accesses data, and TaskMapper converts an entity into the response DTO. TaskService uses read-only transactions for reads and writable transactions for mutations.
+
+Real login and token expiry
+
+Registration validates input, checks the username, encodes the password, and saves an AppUser. Login asks AuthenticationManager to check credentials. TokenService then issues a signed JWT. JwtConfig explicitly configures HS256 for both encoding and decoding, so token creation agrees with validation. The decoder also checks the issuer, taskflow, and token timestamps. SecurityConfig reads the roles claim and requires authentication for task routes.
+
+The token contains the username subject, role, issued-at time, and expiry. AuthResponse.expiresIn now comes from TokenService's configured lifetime, rather than an unrelated hard-coded number. Changing the lifetime therefore changes both the JWT expiry and the response metadata. A signed JWT is readable data protected against undetected modification; it is not an encrypted place to store passwords.
+
+Expected failures
+
+GlobalExceptionHandler returns 400 for malformed JSON, invalid values, or failed validation; 401 for incorrect login credentials; and 409 for an existing username. Missing task IDs remain 404. Unexpected failures are logged server-side and return a generic 500 response. Security-filter failures, such as an invalid bearer token, are handled by Spring Security; the complete shared error format comes later.
+
+Checking existsByUsername first gives a useful early rejection, but two simultaneous registrations can both pass that check. The database unique constraint is the final protection. AuthService uses saveAndFlush so a duplicate insertion fails inside its try/catch, recognizes the username constraint, and translates that conflict to 409. Other database failures are preserved instead of being mislabeled as duplicate usernames. Unit tests exercise this race-handling branch; they do not simulate two real simultaneous database transactions.
+
+Configuration and local files
+
+Main touchpoints are TaskService, TaskController, AuthService, TokenService, JwtConfig, GlobalExceptionHandler, and UsernameAlreadyExistsException. Supporting changes cover application-dev.properties, application-prod.properties, Compose, .env.example, .gitignore, .dockerignore, and the Maven test configuration.
+
+Production receives DB_URL, DB_USERNAME, DB_PASSWORD, JWT_SECRET, and optional JWT_EXPIRATION externally. The JWT key is base64 text representing an appropriately random key; generate it locally with openssl rand -base64 32. Flyway applies migrations, Hibernate validates the resulting production schema, and routine production SQL logging is disabled. The database schema is not silently modified by Hibernate.
+
+.env.example contains variable names and empty secret placeholders. Keep any existing local .env and its data. Compose reads .env for interpolation; a directly launched Spring application needs exported environment variables or another configured property source. Runtime logs and build output are ignored, and the previously tracked log is removed from tracking while its local copy is preserved. The Docker build context excludes local environment files and logs, while retaining the packaged JAR required by the current Dockerfile.
+
+Try the API
+
+With the application running on localhost:8080, register a new example user:
+
+curl -i -X POST http://localhost:8080/api/v1/auth/register -H 'Content-Type: application/json' -d '{"username":"learning-user","password":"learning-password-123"}'
+
+Login with the same example credentials:
+
+curl -sS -X POST http://localhost:8080/api/v1/auth/login -H 'Content-Type: application/json' -d '{"username":"learning-user","password":"learning-password-123"}'
+
+Copy the returned token field, then set this local shell variable:
+
+export TASKFLOW_TOKEN='paste-the-returned-token-here'
+
+curl -i -X POST http://localhost:8080/api/v1/tasks -H "Authorization: Bearer $TASKFLOW_TOKEN" -H 'Content-Type: application/json' -d '{"title":"Understand the baseline","description":"Trace one request","priority":4}'
+
+Verification and learning exercises
+
+AuthApiIntegrationTest checks real registration, password encoding, login, bearer access, lifetime metadata, duplicate registration, invalid requests, anonymous access, and token tampering. ProductionConfigurationIntegrationTest checks Flyway/schema validation and production token settings against isolated PostgreSQL. TaskApiIntegrationTest checks persisted priority updates. Docker must be responsive for Testcontainers tests.
+
+The fast test suite passed: 25 tests, zero failures, zero errors. PostgreSQL integration verification is separate.
+
+Final verification on 23 October 2026: ./mvnw clean test passed with 91 tests, zero failures, zero errors, and zero skipped tests. This includes real PostgreSQL authentication and production-profile checks plus Stage 13 coverage. Docker initially stalled during container cleanup; after recovering Docker, the complete suite passed. Compose configuration also passed validation using public test-only environment values.
+
+Exercises: explain why a database unique constraint is still needed; change a task priority and verify it by GET; describe why expiresIn and JWT expiry must agree. Tasks still have no owners. Stage 14 introduces the user relationship, and stage 15 enforces which user's tasks each request may access.

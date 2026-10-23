@@ -1,27 +1,33 @@
 package com.example.taskflow.controller;
 
 import com.example.taskflow.dto.request.CreateTaskRequest;
+import com.example.taskflow.dto.request.TaskListRequest;
 import com.example.taskflow.dto.request.UpdateTaskRequest;
 import com.example.taskflow.dto.request.UpdateTaskStatusRequest;
 import com.example.taskflow.dto.response.TaskResponse;
+import com.example.taskflow.dto.response.TaskPageResponse;
 import com.example.taskflow.mappers.TaskMapper;
 import com.example.taskflow.model.Task;
 import com.example.taskflow.model.TaskStatus;
 import com.example.taskflow.services.TaskService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.List;
 import java.net.URI;
 
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+@SecurityRequirement(name = "bearerAuth")
 @RestController
 @RequestMapping("/api/v1/tasks")
 @Tag(
@@ -75,16 +81,30 @@ public class TaskController {
                 .body(response);
     }
     @Operation(
-            summary = "Get all tasks",
-            description = "Returns all tasks stored in TaskFlow"
+            summary = "List tasks with pagination and filters",
+            description = "Returns a page envelope. Pages start at 0; size is 1–100 (default 20). "
+                    + "Optional status, priority and case-insensitive title filters are combined. "
+                    + "Sort is field[,asc|desc]; repeat it for multiple fields. "
+                    + "Allowed fields: id, title, status, priority. Default: id,desc.",
+            parameters = @Parameter(
+                    name = "sort",
+                    in = ParameterIn.QUERY,
+                    description = "Repeat for multiple fields, e.g. sort=priority,desc&sort=id,asc",
+                    array = @ArraySchema(schema = @Schema(type = "string", example = "id,desc"))
+            )
     )
     @GetMapping
-    public List<TaskResponse> getAllTasks() {
-        return taskService
-                .getAllTasks()
-                .stream()
-                .map(taskMapper::toResponse)
-                .toList();
+    public TaskPageResponse getAllTasks(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(required = false) TaskStatus status,
+            @RequestParam(required = false) Integer priority,
+            @RequestParam(required = false) String title,
+            @Parameter(hidden = true) @RequestParam MultiValueMap<String, String> parameters) {
+
+        TaskListRequest query = new TaskListRequest(
+                page, size, status, priority, title, parameters.get("sort"));
+        return TaskPageResponse.from(taskService.getTasks(query).map(taskMapper::toResponse));
     }
     @Operation(
             summary = "Get task by ID",
@@ -171,22 +191,30 @@ public class TaskController {
     }
     @Operation(
             summary = "Get tasks by status",
-            description = "Returns tasks having the specified status"
+            description = "Legacy array response. Prefer GET /api/v1/tasks?status=... for pagination.",
+            deprecated = true
     )
     @GetMapping("/status/{status}")
-    public List<Task> getTasksByStatus(
+    public List<TaskResponse> getTasksByStatus(
             @PathVariable TaskStatus status) {
 
-        return taskService.getTasksByStatus(status);
+        return taskService.getTasksByStatus(status)
+                .stream()
+                .map(taskMapper::toResponse)
+                .toList();
     }
     @Operation(
             summary = "Search tasks",
-            description = "Searches tasks by title, ignoring case"
+            description = "Legacy array response. Prefer GET /api/v1/tasks?title=... for pagination.",
+            deprecated = true
     )
     @GetMapping("/search")
-    public List<Task> searchTasks(
+    public List<TaskResponse> searchTasks(
             @RequestParam String title) {
 
-        return taskService.searchTasks(title);
+        return taskService.searchTasks(title)
+                .stream()
+                .map(taskMapper::toResponse)
+                .toList();
     }
 }

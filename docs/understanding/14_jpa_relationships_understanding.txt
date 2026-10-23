@@ -1,0 +1,61 @@
+TASKFLOW STAGE 14: JPA RELATIONSHIPS
+
+Purpose
+
+Stage 14 adds a database relationship between tasks and users. A task can reference one AppUser as its owner, while the same user can own many tasks. This supplies the data structure that stage 15 will use for authorization. It does not yet assign creators automatically or restrict which tasks a signed-in user can access.
+
+How the relationship works
+
+Task now contains an AppUser owner field with @ManyToOne(fetch = FetchType.LAZY, optional = true). @JoinColumn names the database column owner_id and the foreign key fk_tasks_owner. A row with owner_id = 7 refers to the app_users row whose id is 7. It does not copy that user's username, password, or other details into tasks.
+
+The relationship is unidirectional: Java can navigate from Task to AppUser. AppUser does not gain a tasks collection. This keeps the model small and avoids needing to maintain two sides of a relationship. FetchType.LAZY tells Hibernate to defer loading owner details until they are needed. Loading a task does not require the application to read its owner's password or username.
+
+A nullable transition
+
+owner_id is nullable in both the migration and JPA mapping. Existing tasks remain unassigned because their creators cannot be inferred reliably. No fake user is created, no existing user is chosen arbitrarily, and no NOT NULL constraint is added.
+
+New tasks created through the API also remain unassigned at this stage: TaskService.createTask() still does not resolve the authenticated user or set owner. Registration and login do not change this. A relationship can be assigned internally, as shown below, but clients cannot select an owner through create/update request fields.
+
+Authenticated users still share the task dataset. Stage 15 must assign creators on the server, scope every lookup/query/mutation, and decide how legacy unassigned tasks are handled before requiring an owner. A foreign key alone does not enforce ownership permissions.
+
+Schema changes and deletion rules
+
+V4__add_task_owner.sql appends owner_id BIGINT, the foreign key, and idx_tasks_owner_id. Preserve V1–V3: changing an already applied migration can produce a Flyway checksum error and gives existing installations a different history from fresh installations. Flyway applies the new migration during application startup. Hibernate ddl-auto=validate then checks the mapped schema; it does not replace migrations or provide an owner backfill.
+
+The foreign key allows NULL but rejects a non-null owner_id with no matching user. ON DELETE RESTRICT prevents deleting a user while tasks reference that user. The JPA association has no cascade operations, so saving a task does not automatically create its owner and deleting a task does not delete its owner. Reassigning or unassigning tasks before deleting a user requires a deliberate policy.
+
+The owner_id index helps the database locate tasks referencing a user, including future owner-filtered queries and checks when deleting referenced users. An index does not assign ownership, enforce authorization, or make every query faster.
+
+Link an existing user in Java
+
+This internal learning example belongs in a Spring-managed service with taskRepository and userRepository injected. It is not a new public endpoint. Stage 15 must add authorization before exposing ownership operations.
+
+@Transactional
+public Task linkExistingOwner(Long taskId, Long userId) {
+    AppUser owner = userRepository.findById(userId).orElseThrow();
+    Task task = taskRepository.findById(taskId).orElseThrow();
+    task.setOwner(owner);
+    return taskRepository.save(task);
+}
+
+Use org.springframework.transaction.annotation.Transactional. Both records are retrieved inside the transaction, and the task stores a reference to an existing user. Changing owner details through a lazy association should also happen within an appropriate transaction. Accessing an unloaded association after the persistence context closes can cause LazyInitializationException.
+
+Why API responses stay the same
+
+TaskResponse still contains exactly id, title, description, status, and priority. The page envelope and older search/status responses contain these DTOs. TaskMapper does not access owner, so mapping does not need to initialize the lazy user association. Returning AppUser or Task entities directly could expose password hashes, persistence internals, or unexpected lazy-loading behavior. Adding this relationship does not justify adding those details to the API.
+
+Inspect the data safely
+
+SELECT id, title, owner_id
+FROM tasks
+ORDER BY id;
+
+This query shows assigned IDs and NULL values without selecting passwords, tokens, or signing secrets. Inspect only data you are permitted to access. A NULL owner_id is expected for both legacy tasks and tasks created by the current API.
+
+Verification, exercises, and stage 15
+
+Verification on 23 October 2026: ./mvnw clean test passed with 99 tests, zero failures, zero errors, and zero skipped tests. The eight new PostgreSQL tests comprise three V3-to-V4 migration tests and five JPA/API relationship tests. Existing pagination, real authentication, production schema validation, and other tests also passed.
+
+The tests demonstrate migration from an empty database and from V3 with existing tasks, assigned-owner persistence after reload, deferred owner loading, rejected invalid references, and restrictive user deletion. Deleting a task preserves its user, and assigned-owner task responses retain the five-field DTO contract with session-in-view disabled. Flush constraint checks and inspect state after rollback; do not continue querying inside a failed PostgreSQL transaction.
+
+Exercises: explain why several tasks may share one owner_id; link a task to an existing user in a controlled test; inspect the stored ID; delete the task and confirm the user remains. Explain why an owner_id column still cannot prevent one authenticated user from requesting another user's task. Stage 15 adds that enforcement across every access path.

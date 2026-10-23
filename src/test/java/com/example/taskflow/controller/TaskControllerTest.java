@@ -7,8 +7,11 @@ import com.example.taskflow.model.TaskStatus;
 import com.example.taskflow.services.TaskService;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
@@ -22,6 +25,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(TaskController.class)
+@AutoConfigureMockMvc(addFilters = false)
 @Import(TaskMapper.class)
 class TaskControllerTest {
 
@@ -190,5 +194,26 @@ class TaskControllerTest {
                 1L,
                 TaskStatus.COMPLETED
         );
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"{", "{\"status\":\"UNKNOWN\"}", "{\"status\":{}}"})
+    void shouldReturnBadRequestForUnreadableStatusBody(String body) throws Exception {
+        mockMvc.perform(patch("/api/v1/tasks/1/status")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.status").value(400));
+
+        verifyNoInteractions(taskService);
+    }
+
+    @Test
+    void shouldReturnBadRequestForInvalidStatusPath() throws Exception {
+        mockMvc.perform(get("/api/v1/tasks/status/UNKNOWN"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.status").value(400));
+
+        verifyNoInteractions(taskService);
     }
 }

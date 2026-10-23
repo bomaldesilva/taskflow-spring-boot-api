@@ -1,0 +1,12 @@
+.git
+.env
+.env.*
+logs
+*.log
+.idea
+.vscode
+.DS_Store
+
+# The current Dockerfile copies the packaged application from target/.
+target/*
+!target/*.jar

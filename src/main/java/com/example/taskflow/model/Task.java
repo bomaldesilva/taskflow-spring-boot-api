@@ -24,6 +24,16 @@ public class Task {
     private TaskStatus status;
     @Column
     private Integer priority;
+
+    // Legacy tasks remain unassigned until the ownership policy is applied in stage 15.
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(
+            name = "owner_id",
+            nullable = true,
+            foreignKey = @ForeignKey(name = "fk_tasks_owner")
+    )
+    private AppUser owner;
+
     public Task() {
     }
 
@@ -74,5 +84,13 @@ public class Task {
     }
     public void setPriority(Integer priority) {
         this.priority = priority;
+    }
+
+    public AppUser getOwner() {
+        return owner;
+    }
+
+    public void setOwner(AppUser owner) {
+        this.owner = owner;
     }
 }
