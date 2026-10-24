@@ -4,13 +4,16 @@ import com.example.taskflow.exception.TaskNotFoundException;
 import com.example.taskflow.dto.request.TaskListRequest;
 import com.example.taskflow.model.Task;
 import com.example.taskflow.model.TaskStatus;
+import com.example.taskflow.model.AppUser;
 import com.example.taskflow.repository.TaskRepository;
+import com.example.taskflow.repository.TaskSpecifications;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
+import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import io.micrometer.core.instrument.Counter;
@@ -22,12 +25,15 @@ import org.springframework.transaction.annotation.Transactional;
 public class TaskService {
 
     private final TaskRepository taskRepository;
+    private final CurrentUserService currentUserService;
 
     public TaskService(
             TaskRepository taskRepository,
-            MeterRegistry meterRegistry) {
+            MeterRegistry meterRegistry,
+            CurrentUserService currentUserService) {
 
         this.taskRepository = taskRepository;
+        this.currentUserService = currentUserService;
 
         this.taskCreatedCounter =
                 Counter.builder("taskflow.tasks.created")
@@ -38,13 +44,16 @@ public class TaskService {
     }
 
     public Page<Task> getTasks(TaskListRequest query) {
-        return taskRepository.findMatchingTasks(
-                query.status(), query.priority(), query.titlePattern(), query.pageable());
+        AppUser user = currentUserService.requireUser();
+        return taskRepository.findAll(
+                TaskSpecifications.matching(user.getId(), query.status(), query.priority(), query.title()),
+                query.pageable());
     }
 
     private final Counter taskCreatedCounter;
 
     public Task getTaskById(Long id) {
+        AppUser user = currentUserService.requireUser();
 
         log.debug(
                 "Finding task with id: {}",
@@ -52,7 +61,7 @@ public class TaskService {
         );
 
         return taskRepository
-                .findById(id)
+                .findByIdAndOwnerId(id, user.getId())
                 .orElseThrow(() -> {
 
                     log.warn(
@@ -87,6 +96,8 @@ public Task createTask(
         String description,
         Integer priority) {
 
+    AppUser user = currentUserService.requireUser();
+
     log.info(
             "Creating task with title: {}",
             title
@@ -98,6 +109,7 @@ public Task createTask(
     task.setDescription(description);
     task.setStatus(TaskStatus.TODO);
     task.setPriority(priority);
+    task.setOwner(user);
 
     Task savedTask = taskRepository.save(task);
 
@@ -128,12 +140,8 @@ public Task createTask(
     }
     @Transactional
     public Task deleteTask(Long id) {
-
-        if (!taskRepository.existsById(id)) {
-            throw new TaskNotFoundException(id);
-        }
-
-        taskRepository.deleteById(id);
+        Task task = getTaskById(id);
+        taskRepository.delete(task);
         return null;
     }
     @Transactional
@@ -149,14 +157,14 @@ public Task createTask(
     }
     public List<Task> getTasksByStatus(
             TaskStatus status) {
-
-        return taskRepository.findByStatus(status);
+        AppUser user = currentUserService.requireUser();
+        Objects.requireNonNull(status, "Status is required.");
+        return taskRepository.findAll(TaskSpecifications.matching(user.getId(), status, null, null));
     }
     public List<Task> searchTasks(
             String title) {
-
-        return taskRepository
-                .findByTitleContainingIgnoreCase(title);
+        AppUser user = currentUserService.requireUser();
+        return taskRepository.findAll(TaskSpecifications.matchingLegacyTitle(user.getId(), title));
     }
 
 }

@@ -20,6 +20,16 @@ public class AppUser {
     @Column(nullable = false, length = 20)
     private Role role;
 
+    @Column(nullable = false)
+    private boolean enabled = true;
+
+    @Column(name = "token_version", nullable = false)
+    private long tokenVersion;
+
+    @Version
+    @Column(name = "row_version", nullable = false)
+    private long rowVersion;
+
     public Long getId() {
         return id;
     }
@@ -45,6 +55,31 @@ public class AppUser {
     }
 
     public void setRole(Role role) {
+        if (this.role != null && this.role != role) {
+            tokenVersion = Math.incrementExact(tokenVersion);
+        }
         this.role = role;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        if (this.enabled != enabled) {
+            tokenVersion = Math.incrementExact(tokenVersion);
+        }
+        this.enabled = enabled;
+    }
+
+    public long getTokenVersion() {
+        return tokenVersion;
+    }
+
+    public void setTokenVersion(long tokenVersion) {
+        if (tokenVersion < 0) {
+            throw new IllegalArgumentException("Token version cannot be negative.");
+        }
+        this.tokenVersion = tokenVersion;
     }
 }

@@ -1,8 +1,8 @@
 # TaskFlow development plan — stages 13–30
 
-Prepared 23 October 2026 from the current repository. Baseline stabilization and stages 13–14 are implemented and verified; stages 15–30 remain planned.
+Updated 24 October 2026 from the current repository. Baseline stabilization and stages 13–17 are implemented and verified; stages 18–30 remain planned.
 
-Latest verification: `./mvnw clean test` — 99 tests, zero failures, zero errors, zero skipped. This includes 41 pagination/filtering cases and eight new relationship/migration cases against PostgreSQL Testcontainers. Learning notes are in `docs/understanding/00_baseline_understanding.txt`, `docs/understanding/13_pagination_filtering_understanding.txt`, and `docs/understanding/14_jpa_relationships_understanding.txt`.
+Latest verification: `./mvnw clean test` — 233 tests, zero failures, zero errors, zero skipped. Stage 17 adds owner-scoped specification checks, combined PostgreSQL filters/counts, and legacy route compatibility for literal characters, raw titles, and Unicode case conversion. Earlier JWT, pagination, relationship, ownership, migration, and production checks also pass. Learning notes are in `docs/understanding/`, including `17_dynamic_querying_understanding.txt`.
 
 ## Direction
 
@@ -20,7 +20,7 @@ The repository already contains:
 - User registration/login, password encoding, JWT issuance/validation, and role claims.
 - A Dockerfile, local Compose stack, Actuator, one custom task counter, and OpenAPI annotations.
 
-At that starting point, tasks had no owner, queries operated on all tasks, and lists were unbounded. The previous suite contained 30 passing tests, but mock authentication did not establish that real token issuance and validation worked together. The baseline and stage 13 added real authentication coverage and pagination; stage 14 adds the optional user relationship. Ownership assignment and access restrictions remain for stage 15.
+At that starting point, tasks had no owner, queries operated on all tasks, and lists were unbounded. The previous suite contained 30 passing tests, but mock authentication did not establish that real token issuance and validation worked together. The baseline and stage 13 added real authentication coverage and pagination; stage 14 added the user relationship, and stage 15 now assigns creators and enforces ownership.
 
 ## Before starting the next feature
 
@@ -71,7 +71,7 @@ For a strictly sequential course, following 13–30 is also workable. Keep the s
 - [x] Keep the five-field task DTO contract unchanged. Verify assigned-owner responses with session-in-view disabled and mapping without initializing detached owners.
 - [x] Define deletion behavior: no JPA cascades, and `ON DELETE RESTRICT` prevents deleting a referenced user. Deleting a task preserves its user.
 
-**Verified:** V3 → V4 preserves existing task/user data; valid user links persist; invalid references and referenced-user deletion are rejected. API-created tasks remain unassigned until stage 15 sets their authenticated creator.
+**Verified:** V3 → V4 preserves existing task/user data; valid user links persist; invalid references and referenced-user deletion are rejected. API-created tasks were unassigned at stage 14; stage 15 now sets their authenticated creator.
 
 **Done when:** fresh and populated databases migrate successfully; owner references are valid; serialization does not expose user entities or trigger recursive relationships.
 
@@ -81,10 +81,14 @@ For a strictly sequential course, following 13–30 is also workable. Keep the s
 
 **Outcome:** authentication becomes enforceable data isolation.
 
-- [ ] Resolve the authenticated principal to a persisted user. Set task ownership on the server; creation/update requests cannot choose another owner.
-- [ ] Scope list, ID lookup, status lookup, search, update, status change, and delete operations by owner in service/repository queries.
-- [ ] Make the role policy explicit: start with users managing their own tasks. Define any ADMIN access separately and test it.
-- [ ] Adopt a consistent policy for inaccessible task IDs, proposed as 404 for owner-scoped resources. Use 403 for explicit role-restricted operations.
+- [x] Resolve the authenticated principal to a persisted user in `CurrentUserService`; stage 16 uses immutable numeric user IDs for JWT subjects. Assign ownership on the server and preserve it during updates; ownership fields in input cannot select another owner.
+- [x] Scope list items/counts, ID lookup, status lookup, search, update, status change, and delete operations by owner in service/repository queries.
+- [x] Require USER or ADMIN for task operations in HTTP and service paths. Both roles manage only their own tasks; ADMIN has no global bypass.
+- [x] Return 404 for missing, other-user, and unassigned task IDs; 401 for anonymous or unknown/deleted users; and 403 for unsupported task roles.
+
+**Legacy policy:** preserve unassigned rows but exclude them from every task API role. V5 adds an unvalidated `CHECK (owner_id IS NOT NULL)` that enforces new inserts/updates while retaining old rows. Verified operator assignment is required before legacy tasks become accessible; no arbitrary backfill or public claim route is provided. Global column `NOT NULL` is deferred until every legacy row has been resolved.
+
+**Verified:** two real registered users cannot view/change each other's tasks through any endpoint. Tests cover pagination totals, legacy routes, USER/ADMIN isolation, ignored forged owner fields, unknown/deleted identities, direct service calls, and V4 → V5 migration preservation/enforcement.
 
 **Done when:** two persisted users cannot read or change each other's tasks through any route, filter, or mutation. Anonymous requests return 401. Tests also call services where relevant so controller-only checks cannot hide an authorization gap.
 
@@ -94,11 +98,13 @@ For a strictly sequential course, following 13–30 is also workable. Keep the s
 
 **Outcome:** token behavior is deliberate and verifiable.
 
-- [ ] Centralize and validate issuer, audience, permitted signing algorithm, lifetime, and key configuration. Use a stable user identifier; document the transition for existing username-subject tokens.
-- [ ] Keep keys outside source control and images. Define key rotation and what happens to outstanding tokens when a user is disabled or roles change.
-- [ ] Test actual issued tokens, not only mock JWTs: valid, expired, tampered, wrong issuer/audience, and unsupported algorithm cases.
-- [ ] Define logout semantics. Add persisted, hashed refresh tokens with rotation/reuse detection only if persistent sessions are required; otherwise document access-token expiry behavior.
-- [ ] Add bounded login/register abuse protection before public deployment. Revisit CORS and CSRF according to the chosen browser/token transport.
+- [x] Centralize validated JWT properties: HS256, base64 key of at least 32 bytes, issuer/audience, lifetime 60–3600 seconds (default 900), and skew 0–60 seconds (default 30). Use numeric user-ID subjects; old username-subject tokens require login again.
+- [x] Keep deployment keys in external environment/secret storage. Define single-key replacement/restart rotation; persisted enabled/token-version state revokes tokens when accounts are disabled or roles change.
+- [x] Exercise actual issuance/validation, including expired/tampered tokens, wrong issuer/audience, unsupported algorithms, malformed roles/claims, stable identity, and key replacement.
+- [x] Add authenticated POST logout that atomically revokes every session for the current account. Optimistic locking prevents stale user saves from undoing revocation. Access-token expiry requires login again; refresh tokens are not required at this stage.
+- [x] Add bounded per-remote-IP login/register limiting with 429 and Retry-After. Document its single-instance/proxy limits, Authorization-header transport, disabled CSRF without auth cookies, and the future frontend CORS policy.
+
+**Session policy:** V6 preserves users/tasks and adds enabled, token_version, and row_version. Bearer validation checks current database account state on every request. One shared signing key is supported; replacing it on every instance invalidates all old tokens. No overlapping-key rotation or refresh endpoint is provided.
 
 **Done when:** issuance and validation agree, expiry metadata matches the token, invalid tokens return 401, and rotation/session behavior has tests. Choose a managed identity provider if full identity lifecycle becomes a product requirement.
 
@@ -108,9 +114,13 @@ For a strictly sequential course, following 13–30 is also workable. Keep the s
 
 **Outcome:** optional filters compose without an expanding collection of repository methods.
 
-- [ ] Refactor stage 13 filters into Spring Data JPA specifications and extend the repository with `JpaSpecificationExecutor`.
-- [ ] Compose owner scope with optional status, priority, and title predicates. Add date predicates only after audited timestamps exist in stage 18.
-- [ ] Keep pagination, validation, and DTO responses stable. Retire or delegate old search/status routes through the same query path.
+- [x] Extend `TaskRepository` with `JpaSpecificationExecutor` and replace the fixed JPQL/derived filter methods with reusable `TaskSpecifications` predicates.
+- [x] Always compose owner scope with optional status, priority, and literal title predicates using AND. Missing owner IDs fail immediately; absent optional filters remain unrestricted within that owner. Date predicates wait for stage 18 audited timestamps.
+- [x] Preserve pagination, sort tie-breakers, validation, counts, and DTO responses. Deprecated status/search arrays use specifications too, retaining raw legacy title input and database uppercase conversion; the main list retains normalized lowercase matching.
+
+**Compatibility:** no schema migration or public API change. SQL LIKE escaping is centralized in the specification layer, and ID lookups/mutations retain `findByIdAndOwnerId`. Legacy routes remain deprecated and unbounded; new clients use the main paginated list.
+
+**Verified:** PostgreSQL checks cover combined filters, exact matching counts across pages, zero results, cross-user isolation, and legacy/main route compatibility. Legacy Unicode matching is compared with its former database UPPER-based query; main-route normalization and invalid-input checks remain unchanged.
 
 **Done when:** filter combinations, zero results, invalid input, and owner isolation pass PostgreSQL integration tests. Avoid introducing a custom query language for a small fixed filter set.
 
@@ -288,4 +298,4 @@ For a strictly sequential course, following 13–30 is also workable. Keep the s
 4. Review API compatibility, ownership scope, and database migration impact.
 5. Finish with a working example and record decisions; do not start another infrastructure component to compensate for an unfinished feature.
 
-Baseline stabilization and stages 13–14 are complete, following the requested numeric stage order. The next milestone is stage 15: assign creators from authenticated users, define treatment of legacy unassigned tasks, and enforce owner-scoped reads and writes. Until then, authenticated users still access a shared task dataset.
+Baseline stabilization and stages 13–17 are complete, following the requested numeric stage order. The next milestone is stage 18: add UTC creation/modification timestamps through JPA auditing with a Flyway migration and a documented policy for existing rows. Legacy unassigned tasks are preserved but remain hidden until their ownership is verified.

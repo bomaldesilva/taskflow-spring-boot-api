@@ -25,7 +25,7 @@ public class Task {
     @Column
     private Integer priority;
 
-    // Legacy tasks remain unassigned until the ownership policy is applied in stage 15.
+    // Legacy unassigned rows are retained but excluded from all task API queries.
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(
             name = "owner_id",

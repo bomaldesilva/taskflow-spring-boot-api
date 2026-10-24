@@ -1,6 +1,7 @@
 package com.example.taskflow.services;
 
 import com.example.taskflow.exception.TaskNotFoundException;
+import com.example.taskflow.model.AppUser;
 import com.example.taskflow.model.Task;
 import com.example.taskflow.model.TaskStatus;
 import com.example.taskflow.repository.TaskRepository;
@@ -11,7 +12,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -26,16 +26,22 @@ class TaskServiceTest {
 
     @Mock
     private TaskRepository taskRepository;
+    @Mock
+    private CurrentUserService currentUserService;
+    private AppUser currentUser;
     private MeterRegistry meterRegistry;
     private TaskService taskService;
     @BeforeEach
     void setUp() {
 
         meterRegistry = new SimpleMeterRegistry();
+        currentUser = mock(AppUser.class);
+        when(currentUserService.requireUser()).thenReturn(currentUser);
 
         taskService = new TaskService(
                 taskRepository,
-                meterRegistry
+                meterRegistry,
+                currentUserService
         );
     }
     @Test
@@ -49,29 +55,27 @@ class TaskServiceTest {
         task.setStatus(TaskStatus.TODO);
         task.setPriority(5);
 
-        when(taskRepository.findById(1L))
-                .thenReturn(Optional.of(task));
+        mockOwnedTaskLookup(1L, task);
 
         Task result = taskService.getTaskById(1L);
 
 //        assertEquals(1L, result.getId());
         assertEquals("Learn Testing", result.getTitle());
 //        assertEquals(TaskStatus.TODO, result.getStatus());
-        verify(taskRepository).findById(1L);
+        verify(taskRepository).findByIdAndOwnerId(1L, 1L);
         System.out.println("end");
     }
     @Test
     void shouldThrowExceptionWhenTaskDoesNotExist() {
 
-        when(taskRepository.findById(999L))
-                .thenReturn(Optional.empty());
+        mockOwnedTaskLookup(999L, null);
 
         assertThrows(
                 TaskNotFoundException.class,
                 () -> taskService.getTaskById(999L)
         );
 
-        verify(taskRepository).findById(999L);
+        verify(taskRepository).findByIdAndOwnerId(999L, 1L);
     }
     @Test
     void shouldCreateTaskWithTodoStatus() {
@@ -93,6 +97,7 @@ class TaskServiceTest {
         );
 
         assertNotNull(result.getId());
+        assertSame(currentUser, result.getOwner());
 
         assertEquals(
                 "Learn Mockito",
@@ -116,25 +121,24 @@ class TaskServiceTest {
     void shouldDeleteExistingTask() {
 
         Task task = new Task();
-
-
-        when(taskRepository.existsById(1L))
-                .thenReturn(true);
+        task.setId(1L);
+        mockOwnedTaskLookup(1L, task);
 
         Task result = taskService.deleteTask(1L);
 
 //        assertEquals(1L, result.getId());
 //        assertEquals("Learn Testing", result.getTitle());
 //        assertEquals(TaskStatus.TODO, result.getStatus());
-        verify(taskRepository).deleteById(1L);
+        assertNull(result);
+        verify(taskRepository).findByIdAndOwnerId(1L, 1L);
+        verify(taskRepository).delete(task);
         System.out.println("end");
     }
     @Test
     void shouldThrowExceptionWhenDeletingMissingTask() {
 
         // Arrange
-        when(taskRepository.existsById(999L))
-                .thenReturn(false);
+        mockOwnedTaskLookup(999L, null);
 
         // Act + Assert
         assertThrows(
@@ -142,11 +146,11 @@ class TaskServiceTest {
                 () -> taskService.deleteTask(999L)
         );
 
-        // Repository should check existence
-        verify(taskRepository).existsById(999L);
+        // A missing or inaccessible ID must fail the owner-scoped lookup.
+        verify(taskRepository).findByIdAndOwnerId(999L, 1L);
 
         // Delete must NOT happen
-        verify(taskRepository, never()).deleteById(999L);
+        verify(taskRepository, never()).delete(any(Task.class));
     }
     @Test
     void shouldUpdateTaskStatus() {
@@ -159,8 +163,7 @@ class TaskServiceTest {
         task.setDescription("Practice testing");
         task.setStatus(TaskStatus.TODO);
 
-        when(taskRepository.findById(1L))
-                .thenReturn(Optional.of(task));
+        mockOwnedTaskLookup(1L, task);
 
         when(taskRepository.save(any(Task.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
@@ -177,7 +180,16 @@ class TaskServiceTest {
                 result.getStatus()
         );
 
-        verify(taskRepository).findById(1L);
+        verify(taskRepository).findByIdAndOwnerId(1L, 1L);
         verify(taskRepository).save(task);
+    }
+
+    private void mockOwnedTaskLookup(Long taskId, Task task) {
+        when(currentUser.getId()).thenReturn(1L);
+        when(taskRepository.findByIdAndOwnerId(taskId, 1L))
+                .thenReturn(Optional.ofNullable(task));
+        if (task != null) {
+            task.setOwner(currentUser);
+        }
     }
 }

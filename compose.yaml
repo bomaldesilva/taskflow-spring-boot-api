@@ -33,7 +33,10 @@ services:
       DB_USERNAME: ${DB_USERNAME:-taskflow}
       DB_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env or your environment}
       JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET to a generated base64 key in .env or your environment}
-      JWT_EXPIRATION: ${JWT_EXPIRATION:-3600}
+      JWT_EXPIRATION: ${JWT_EXPIRATION:-900}
+      JWT_ISSUER: ${JWT_ISSUER:-taskflow}
+      JWT_AUDIENCE: ${JWT_AUDIENCE:-taskflow-api}
+      JWT_CLOCK_SKEW: ${JWT_CLOCK_SKEW:-30}
 
     depends_on:
       postgres:

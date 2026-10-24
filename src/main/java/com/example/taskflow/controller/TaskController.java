@@ -32,7 +32,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RequestMapping("/api/v1/tasks")
 @Tag(
         name = "Tasks",
-        description = "Task management operations"
+        description = "Task operations restricted to the authenticated user's own tasks"
 )
 public class TaskController {
 
@@ -47,7 +47,7 @@ public class TaskController {
     }
     @Operation(
             summary = "Create a task",
-            description = "Creates a new task with TODO status"
+            description = "Creates a TODO task owned by the authenticated user. Ownership is set by the server."
     )
     @ApiResponses({
             @ApiResponse(
@@ -82,7 +82,8 @@ public class TaskController {
     }
     @Operation(
             summary = "List tasks with pagination and filters",
-            description = "Returns a page envelope. Pages start at 0; size is 1–100 (default 20). "
+            description = "Returns the authenticated user's tasks in a page envelope. "
+                    + "Pages start at 0; size is 1–100 (default 20). "
                     + "Optional status, priority and case-insensitive title filters are combined. "
                     + "Sort is field[,asc|desc]; repeat it for multiple fields. "
                     + "Allowed fields: id, title, status, priority. Default: id,desc.",
@@ -108,7 +109,7 @@ public class TaskController {
     }
     @Operation(
             summary = "Get task by ID",
-            description = "Returns a task using its unique ID"
+            description = "Returns an owned task. Missing, unassigned and other users' IDs all return 404."
     )
     @ApiResponses({
             @ApiResponse(
@@ -132,7 +133,7 @@ public class TaskController {
     }
     @Operation(
             summary = "Update a task",
-            description = "Replaces the editable data of an existing task"
+            description = "Replaces editable fields of an owned task; ownership cannot be changed."
     )
     @PutMapping("/{id}")
     public TaskResponse updateTask(
@@ -151,7 +152,7 @@ public class TaskController {
     }
     @Operation(
             summary = "Delete a task",
-            description = "Deletes a task using its ID"
+            description = "Deletes an owned task using its ID"
     )
     @ApiResponses({
             @ApiResponse(
@@ -175,7 +176,7 @@ public class TaskController {
     }
     @Operation(
             summary = "Update task status",
-            description = "Changes the status of an existing task"
+            description = "Changes the status of an owned task"
     )
     @PatchMapping("/{id}/status")
     public TaskResponse updateStatus(
@@ -191,7 +192,7 @@ public class TaskController {
     }
     @Operation(
             summary = "Get tasks by status",
-            description = "Legacy array response. Prefer GET /api/v1/tasks?status=... for pagination.",
+            description = "Owner-scoped legacy array. Prefer GET /api/v1/tasks?status=... for pagination.",
             deprecated = true
     )
     @GetMapping("/status/{status}")
@@ -205,7 +206,7 @@ public class TaskController {
     }
     @Operation(
             summary = "Search tasks",
-            description = "Legacy array response. Prefer GET /api/v1/tasks?title=... for pagination.",
+            description = "Owner-scoped legacy array. Prefer GET /api/v1/tasks?title=... for pagination.",
             deprecated = true
     )
     @GetMapping("/search")

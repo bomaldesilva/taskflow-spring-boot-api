@@ -1,8 +1,12 @@
 package com.example.taskflow.integration;
 
+import com.example.taskflow.model.AppUser;
+import com.example.taskflow.model.Role;
 import com.example.taskflow.model.Task;
 import com.example.taskflow.model.TaskStatus;
 import com.example.taskflow.repository.TaskRepository;
+import com.example.taskflow.repository.UserRepository;
+import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -12,15 +16,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -43,17 +53,31 @@ class TaskPaginationIntegrationTest {
     @Autowired
     private TaskRepository taskRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    private AppUser owner;
     private Task firstTask;
     private Task secondTask;
+    private Task thirdTask;
     private Task fourthTask;
     private Task lastTask;
 
     @BeforeEach
     void seedTasks() {
         taskRepository.deleteAll();
+        userRepository.deleteAll();
+        owner = new AppUser();
+        owner.setUsername("testuser");
+        owner.setPassword("not-a-real-password-hash");
+        owner.setRole(Role.USER);
+        owner = userRepository.saveAndFlush(owner);
         firstTask = saveTask("Alpha Spring", TaskStatus.TODO, 5);
         secondTask = saveTask("beta SPRING", TaskStatus.TODO, 5);
-        saveTask("Gamma spring", TaskStatus.COMPLETED, 5);
+        thirdTask = saveTask("Gamma spring", TaskStatus.COMPLETED, 5);
         fourthTask = saveTask("Alpha Docker", TaskStatus.TODO, 2);
         lastTask = saveTask("No priority", TaskStatus.IN_PROGRESS, null);
     }
@@ -281,6 +305,76 @@ class TaskPaginationIntegrationTest {
         );
     }
 
+    @Test
+    void shouldReturnEquivalentOwnerScopedLegacyAndPagedFilterResults() throws Exception {
+        AppUser otherOwner = saveOtherOwner();
+        saveTask(otherOwner, "Foreign Spring", TaskStatus.TODO, 5);
+        saveTask(otherOwner, "Finished foreign task", TaskStatus.COMPLETED, 2);
+
+        Set<Long> expectedTodo = Set.of(firstTask.getId(), secondTask.getId(), fourthTask.getId());
+        assertEquals(expectedTodo, responseIds(get("/api/v1/tasks/status/TODO"), "$[*].id"));
+        assertEquals(expectedTodo, responseIds(get("/api/v1/tasks")
+                .param("status", "TODO").param("size", "100"), "$.items[*].id"));
+
+        Set<Long> expectedSpring = Set.of(firstTask.getId(), secondTask.getId(), thirdTask.getId());
+        assertEquals(expectedSpring, legacySearchIds("sPrInG"));
+        assertEquals(expectedSpring, pagedSearchIds("sPrInG"));
+    }
+
+    @Test
+    void shouldShareLiteralEscapingAcrossLegacyAndPagedSearches() throws Exception {
+        String literal = "100%_!\\path";
+        Task matching = saveTask("Review " + literal, TaskStatus.TODO, 3);
+        saveTask("Review 1000X!\\path", TaskStatus.TODO, 3);
+        saveTask(saveOtherOwner(), "Review " + literal, TaskStatus.TODO, 3);
+
+        Set<Long> expected = Set.of(matching.getId());
+        assertEquals(expected, legacySearchIds(literal));
+        assertEquals(expected, pagedSearchIds(literal));
+    }
+
+    @Test
+    void shouldPreserveLegacyDatabaseUppercaseMatchingForGreekSigma() throws Exception {
+        Task sigma = saveTask("σ", TaskStatus.TODO, 3);
+        saveTask("ς", TaskStatus.TODO, 3);
+        saveTask(saveOtherOwner(), "σ", TaskStatus.TODO, 3);
+
+        Set<Long> expectedLegacy = Set.copyOf(jdbcTemplate.queryForList("""
+                SELECT id FROM tasks
+                WHERE owner_id = ? AND upper(title) LIKE upper(?) ESCAPE '\\'
+                """, Long.class, owner.getId(), "%σ%"));
+
+        assertEquals(expectedLegacy, legacySearchIds("σ"));
+        assertEquals(Set.of(sigma.getId()), pagedSearchIds("σ"));
+    }
+
+    @Test
+    void shouldPreserveRawLegacyTitlesWhilePagedTitlesKeepNormalizationAndValidation() throws Exception {
+        Task padded = saveTask("Exact  spring  match", TaskStatus.TODO, 3);
+        Task whitespace = saveTask("Three   spaces", TaskStatus.TODO, 3);
+        Task noSpaces = saveTask("NoSpaces", TaskStatus.TODO, 3);
+        AppUser otherOwner = saveOtherOwner();
+        saveTask(otherOwner, padded.getTitle(), TaskStatus.TODO, 3);
+        saveTask(otherOwner, whitespace.getTitle(), TaskStatus.TODO, 3);
+        saveTask(otherOwner, noSpaces.getTitle(), TaskStatus.TODO, 3);
+
+        assertEquals(Set.of(padded.getId()), legacySearchIds("  spring  "));
+        assertEquals(Set.of(firstTask.getId(), secondTask.getId(), thirdTask.getId(), padded.getId()),
+                pagedSearchIds("  spring  "));
+
+        Set<Long> allOwned = Set.of(firstTask.getId(), secondTask.getId(), thirdTask.getId(),
+                fourthTask.getId(), lastTask.getId(), padded.getId(), whitespace.getId(), noSpaces.getId());
+        assertEquals(Set.of(whitespace.getId()), legacySearchIds("   "));
+        assertEquals(allOwned, pagedSearchIds("   "));
+        assertEquals(allOwned, legacySearchIds(""));
+        assertEquals(allOwned, pagedSearchIds(""));
+
+        String overlength = "x".repeat(101);
+        assertEquals(Set.of(), legacySearchIds(overlength));
+        mockMvc.perform(get("/api/v1/tasks").param("title", overlength))
+                .andExpect(status().isBadRequest());
+    }
+
     @ParameterizedTest
     @MethodSource("invalidQueryParameters")
     void shouldRejectInvalidQueryParameters(String name, String[] values) throws Exception {
@@ -317,11 +411,40 @@ class TaskPaginationIntegrationTest {
     }
 
     private Task saveTask(String title, TaskStatus taskStatus, Integer priority) {
+        return saveTask(owner, title, taskStatus, priority);
+    }
+
+    private Task saveTask(AppUser taskOwner, String title, TaskStatus taskStatus, Integer priority) {
         Task task = new Task();
         task.setTitle(title);
         task.setDescription("Pagination integration test");
         task.setStatus(taskStatus);
         task.setPriority(priority);
+        task.setOwner(taskOwner);
         return taskRepository.save(task);
+    }
+
+    private AppUser saveOtherOwner() {
+        AppUser otherOwner = new AppUser();
+        otherOwner.setUsername("other-pagination-user");
+        otherOwner.setPassword("not-a-real-password-hash");
+        otherOwner.setRole(Role.USER);
+        return userRepository.saveAndFlush(otherOwner);
+    }
+
+    private Set<Long> legacySearchIds(String title) throws Exception {
+        return responseIds(get("/api/v1/tasks/search").param("title", title), "$[*].id");
+    }
+
+    private Set<Long> pagedSearchIds(String title) throws Exception {
+        return responseIds(get("/api/v1/tasks").param("title", title).param("size", "100"), "$.items[*].id");
+    }
+
+    private Set<Long> responseIds(MockHttpServletRequestBuilder request, String path) throws Exception {
+        String body = mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+        List<Number> ids = JsonPath.read(body, path);
+        return ids.stream().map(Number::longValue).collect(Collectors.toSet());
     }
 }

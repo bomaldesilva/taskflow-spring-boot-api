@@ -1,0 +1,69 @@
+TASKFLOW STAGE 15: AUTHORIZATION AND OWNERSHIP
+
+Purpose
+
+Authentication establishes who sent a request. Authorization decides what that person may do. Before this stage, a valid login could read or change the shared task dataset. A task now belongs to its creator, and every normal API operation restricts access to that owner. Knowing another task's numeric ID does not grant access.
+
+From a real token to a database user
+
+Spring Security first verifies the bearer JWT and reads its role authorities. The current JWT subject is a username. CurrentUserService.requireUser() reads the authenticated principal from SecurityContextHolder, requires USER or ADMIN, and resolves that username to a persisted AppUser. TaskService uses the resulting database ID in repository queries.
+
+An anonymous request returns 401. A supported authenticated principal whose username is unknown or whose user was deleted also returns 401. An authenticated principal without a supported task role returns 403. Both USER and ADMIN manage only their own tasks; there is no administrator bypass. This policy is enforced at the task HTTP routes and again through CurrentUserService in TaskService, so calling the service directly cannot skip principal resolution and role checks.
+
+Owner-scoped reads and writes
+
+TaskService.createTask() assigns the resolved AppUser on the server. Clients cannot select an owner through the create or update DTO. Fields such as ownerId are unknown input properties and are ignored by the current JSON configuration; they are never copied into ownership. An update changes editable task data while preserving the existing owner.
+
+GET by ID, PUT, PATCH status, and DELETE all use an ID-and-owner lookup. If no matching row exists, the API returns 404. The response is the same for a nonexistent ID, another user's task, or an unassigned legacy task, which avoids revealing whether a hidden resource exists. Deletion removes the task found by that scoped lookup.
+
+The main list query includes owner ID before applying optional status, priority, and title filters. Pagination and the count query therefore describe only the current user's matching tasks. A small visible page must not be paired with totals from everybody else's data. The deprecated status and title-search routes also include owner scope, so an older endpoint cannot become a shortcut around the restriction.
+
+Task responses keep the same five fields: id, title, description, status, and priority. The page envelope is unchanged from stage 13. Neither a user entity nor a password is included in responses. The lazy many-to-one relationship from stage 14 remains an internal persistence detail.
+
+What happens to old tasks
+
+Stage 14 preserved old rows with owner_id=NULL because their creators could not safely be inferred. Stage 15 keeps those rows but hides them from every API role, including ADMIN. There is no public claim endpoint and no automatic assignment to the next person who logs in.
+
+Flyway V5 adds CHECK (owner_id IS NOT NULL) NOT VALID. In PostgreSQL, NOT VALID skips checking pre-existing rows when the constraint is added, but still checks new inserts and updates. A new unowned task is rejected, and updating an old unassigned row also requires supplying a valid owner. The foreign key continues to reject owner IDs that do not reference an existing user.
+
+The column stays nullable and the JPA relationship stays optional=true so historical unassigned rows remain representable. This is a deliberate transition state, rather than an assertion that every stored row already has an owner. A future migration can validate the constraint and apply global NOT NULL only after verified backfilling resolves all legacy rows.
+
+An operator may first inspect legacy rows without changing them:
+
+SELECT id, title FROM tasks WHERE owner_id IS NULL ORDER BY id;
+
+Any assignment must follow verified ownership evidence. Use a reviewed database operation inside a transaction, check the exact task and user IDs, and inspect the affected row before committing. Do not mass-assign old tasks or infer ownership from whoever is currently authenticated. The application does not expose this operator operation as an API feature.
+
+Files and request flow
+
+CurrentUserService resolves identity; SecurityConfig restricts task roles; TaskService applies ownership; TaskRepository supplies scoped ID, page, status, and title queries. GlobalExceptionHandler covers service-level access denial, while V5__require_owner_for_new_tasks.sql protects future writes. The HTTP flow is security filter -> controller -> service/principal resolution -> owner-scoped repository query -> DTO mapping -> response.
+
+Try two accounts
+
+Create two new example users and copy each response's token value:
+
+curl -sS -X POST http://localhost:8080/api/v1/auth/register -H 'Content-Type: application/json' -d '{"username":"owner-alice","password":"learning-password-123"}'
+
+curl -sS -X POST http://localhost:8080/api/v1/auth/register -H 'Content-Type: application/json' -d '{"username":"owner-bob","password":"learning-password-123"}'
+
+export ALICE_TOKEN='paste-alice-token-here'
+export BOB_TOKEN='paste-bob-token-here'
+
+curl -sS -X POST http://localhost:8080/api/v1/tasks -H "Authorization: Bearer $ALICE_TOKEN" -H 'Content-Type: application/json' -d '{"title":"Alice private task","priority":5}'
+
+Copy the created task's id, then compare access:
+
+export ALICE_TASK_ID='paste-created-numeric-id-here'
+curl -i http://localhost:8080/api/v1/tasks/$ALICE_TASK_ID -H "Authorization: Bearer $ALICE_TOKEN"
+curl -i http://localhost:8080/api/v1/tasks/$ALICE_TASK_ID -H "Authorization: Bearer $BOB_TOKEN"
+curl -sS http://localhost:8080/api/v1/tasks -H "Authorization: Bearer $BOB_TOKEN"
+
+Alice should receive 200 for her task and Bob should receive 404. With a new Bob account and no Bob tasks, his items and totals remain empty even though Alice's task exists. Existing example usernames require login instead of registering them again.
+
+Tests and exercises
+
+Real-auth integration tests register persisted users, obtain actual tokens, and exercise the security filter and database queries together. @WithMockUser supplies a simulated principal but does not create AppUser rows; those tests now persist matching user fixtures and attach owners to their tasks. Service tests mock CurrentUserService while checking owner-scoped repository calls. Ownership tests cover cross-user access, totals, mutations, role policy, and legacy handling; relationship tests retain detached DTO/lazy-loading checks.
+
+Verification on 23 October 2026: ./mvnw clean test passed with 144 tests, zero failures, zero errors, and zero skipped tests. This includes 27 real-JWT/direct-service ownership cases, 15 identity-resolution cases, and three V4-to-V5 owner-required migration cases, alongside all earlier tests. The checks verify that only the authenticated owner can access a task, owner filters apply to page totals and legacy routes, forged ownership fields cannot transfer tasks, and legacy rows remain intact but inaccessible through the API.
+
+Exercises: attempt Bob's PUT and DELETE on Alice's task; compare each user's filtered totals; explain why HTTP checks alone are insufficient; describe why NOT VALID preserves old rows while rejecting new unowned writes. Stage 16 still owns the larger JWT improvements, including stable user-ID subjects, audience policy, and key rotation.

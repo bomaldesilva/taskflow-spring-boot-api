@@ -2,7 +2,10 @@ package com.example.taskflow.repository;
 
 import com.example.taskflow.model.Task;
 import com.example.taskflow.model.TaskStatus;
+import com.example.taskflow.model.AppUser;
+import com.example.taskflow.model.Role;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,7 @@ import org.springframework.test.context.ActiveProfiles;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static com.example.taskflow.repository.TaskSpecifications.*;
 
 @DataJpaTest(properties = {
         "spring.flyway.enabled=false",
@@ -21,10 +25,22 @@ class TaskRepositoryTest {
 
     @Autowired
     private TaskRepository taskRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    private AppUser owner;
+
+    @BeforeEach
+    void createOwner() {
+        owner = saveUser("repository-owner");
+    }
+
     @Test
     void shouldSaveTask() {
 
         Task task = new Task();
+        task.setOwner(owner);
 
         task.setTitle("Learn JPA Testing");
         task.setDescription("Practice DataJpaTest");
@@ -49,18 +65,21 @@ class TaskRepositoryTest {
     void shouldFindTasksByStatus() {
 
         Task task1 = new Task();
+        task1.setOwner(owner);
         task1.setTitle("Learn Spring");
         task1.setDescription("Spring Boot");
         task1.setStatus(TaskStatus.TODO);
         task1.setPriority(5);
 
         Task task2 = new Task();
+        task2.setOwner(owner);
         task2.setTitle("Learn Docker");
         task2.setDescription("Containers");
         task2.setStatus(TaskStatus.COMPLETED);
         task2.setPriority(4);
 
         Task task3 = new Task();
+        task3.setOwner(owner);
         task3.setTitle("Learn Testing");
         task3.setDescription("JUnit");
         task3.setStatus(TaskStatus.TODO);
@@ -69,9 +88,10 @@ class TaskRepositoryTest {
         taskRepository.save(task1);
         taskRepository.save(task2);
         taskRepository.save(task3);
+        saveTask(saveUser("other-owner"), "Other user's TODO task", TaskStatus.TODO, 5);
 
         List<Task> todoTasks =
-                taskRepository.findByStatus(TaskStatus.TODO);
+                taskRepository.findAll(ownedBy(owner.getId()).and(withStatus(TaskStatus.TODO)));
 
         assertEquals(2, todoTasks.size());
 
@@ -88,12 +108,14 @@ class TaskRepositoryTest {
     void shouldFindTasksByTitleIgnoringCase() {
 
         Task task1 = new Task();
+        task1.setOwner(owner);
         task1.setTitle("Learn Spring Boot");
         task1.setDescription("Backend development");
         task1.setStatus(TaskStatus.TODO);
         task1.setPriority(5);
 
         Task task2 = new Task();
+        task2.setOwner(owner);
         task2.setTitle("Learn Docker");
         task2.setDescription("Containers");
         task2.setStatus(TaskStatus.TODO);
@@ -101,10 +123,11 @@ class TaskRepositoryTest {
 
         taskRepository.save(task1);
         taskRepository.save(task2);
+        saveTask(saveUser("other-owner"), "Other user's Spring task", TaskStatus.TODO, 5);
 
         List<Task> result =
                 taskRepository
-                        .findByTitleContainingIgnoreCase("SPRING");
+                        .findAll(ownedBy(owner.getId()).and(withTitleContaining("SPRING")));
 
         assertEquals(1, result.size());
 
@@ -117,6 +140,7 @@ class TaskRepositoryTest {
     void shouldFindTaskById() {
 
         Task task = new Task();
+        task.setOwner(owner);
 
         task.setTitle("Learn Hibernate");
         task.setDescription("Understand ORM");
@@ -145,6 +169,7 @@ class TaskRepositoryTest {
     void shouldDeleteTask() {
 
         Task task = new Task();
+        task.setOwner(owner);
 
         task.setTitle("Delete Me");
         task.setDescription("Repository delete test");
@@ -161,5 +186,37 @@ class TaskRepositoryTest {
         assertFalse(
                 taskRepository.existsById(id)
         );
+    }
+
+    @Test
+    void shouldPreserveOwnerScopeWhenEveryOptionalFilterIsMissing() {
+        Task owned = saveTask(owner, "My task", TaskStatus.TODO, 5);
+        saveTask(saveUser("other-owner"), "Other user's task", TaskStatus.TODO, 5);
+        // The Hibernate-only slice can model a legacy unassigned row preserved by V5.
+        saveTask(null, "Legacy task", TaskStatus.TODO, 5);
+
+        List<Task> result = taskRepository.findAll(ownedBy(owner.getId())
+                .and(withStatus(null))
+                .and(withPriority(null))
+                .and(withTitleContaining(null)));
+
+        assertEquals(List.of(owned.getId()), result.stream().map(Task::getId).toList());
+    }
+
+    private AppUser saveUser(String username) {
+        AppUser user = new AppUser();
+        user.setUsername(username);
+        user.setPassword("test-only-password-hash");
+        user.setRole(Role.USER);
+        return userRepository.saveAndFlush(user);
+    }
+
+    private Task saveTask(AppUser taskOwner, String title, TaskStatus status, int priority) {
+        Task task = new Task();
+        task.setOwner(taskOwner);
+        task.setTitle(title);
+        task.setStatus(status);
+        task.setPriority(priority);
+        return taskRepository.saveAndFlush(task);
     }
 }

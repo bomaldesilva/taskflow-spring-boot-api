@@ -2,6 +2,9 @@ package com.example.taskflow.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.http.HttpMethod;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -14,11 +17,27 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
+import org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter;
 
 import org.springframework.security.web.SecurityFilterChain;
 
+import java.time.Clock;
+
 @Configuration
+@EnableConfigurationProperties(AuthRateLimitProperties.class)
 public class SecurityConfig {
+
+    @Bean
+    public AuthRateLimitFilter authRateLimitFilter(AuthRateLimitProperties properties, Clock clock) {
+        return new AuthRateLimitFilter(properties, clock);
+    }
+
+    @Bean
+    public FilterRegistrationBean<AuthRateLimitFilter> authRateLimitFilterRegistration(AuthRateLimitFilter filter) {
+        FilterRegistrationBean<AuthRateLimitFilter> registration = new FilterRegistrationBean<>(filter);
+        registration.setEnabled(false);
+        return registration;
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -59,7 +78,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(
             HttpSecurity http,
-            JwtAuthenticationConverter converter)
+            JwtAuthenticationConverter converter,
+            AuthRateLimitFilter authRateLimitFilter)
             throws Exception {
 
         http
@@ -74,11 +94,15 @@ public class SecurityConfig {
                         )
                 )
 
+                .addFilterBefore(authRateLimitFilter, BearerTokenAuthenticationFilter.class)
+
                 .authorizeHttpRequests(auth ->
                         auth
 
+                                .requestMatchers(HttpMethod.POST, "/api/v1/auth/register", "/api/v1/auth/login")
+                                .permitAll()
+
                                 .requestMatchers(
-                                        "/api/v1/auth/**",
                                         "/swagger-ui/**",
                                         "/swagger-ui.html",
                                         "/v3/api-docs/**",
@@ -86,6 +110,9 @@ public class SecurityConfig {
                                         "/actuator/info"
                                 )
                                 .permitAll()
+
+                                .requestMatchers("/api/v1/tasks", "/api/v1/tasks/**")
+                                .hasAnyRole("USER", "ADMIN")
 
                                 .anyRequest()
                                 .authenticated()

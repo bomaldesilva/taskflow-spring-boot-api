@@ -1,0 +1,59 @@
+TASKFLOW STAGE 16: STRONGER JWT SECURITY
+
+Purpose and compatibility
+
+A signed token needs a clear identity, intended recipient, lifetime, and revocation policy. This stage defines those rules and checks account state when validating bearer tokens. Stage 15's ownership rules remain: USER and ADMIN manage only their own tasks, and legacy unassigned tasks stay hidden.
+
+JWT subjects now contain the persisted numeric user ID, rather than the username. An ID stays stable if a username changes. Login carries that ID in AuthenticatedUser from password verification through token issuance, so a concurrent username reassignment cannot switch the token to another account. Old username-subject tokens are deliberately rejected, so users must log in again after this upgrade. Trusted in-process or @WithMockUser principals retain username resolution for tests; bearer JWTs never fall back to that older identity format.
+
+What a token contains
+
+TokenService creates an HS256-signed JWT with sub as the user ID; iss as its issuer; aud as its intended API audience; iat as issuance time; nbf as the earliest valid time; exp as expiry; jti as a fresh UUID; ver as the user's token version; and roles as the current role. Decoding checks the permitted algorithm, issuer, audience, required claims, timestamp relationships, identifier format, and current account state. Roles must be a nonempty array of nonblank strings; malformed role data returns 401 before authority conversion. A well-formed unsupported role still receives 403 on task endpoints. A JWT is signed readable data, so passwords and secret keys do not belong in its payload.
+
+JwtProperties centralizes configuration. Defaults are issuer taskflow, audience taskflow-api, expiration 900 seconds, and clock skew 30 seconds. Lifetime must be 60–3600 seconds and skew 0–60 seconds; issuer and audience must be nonblank. Skew tolerates a small difference between clocks when validating timestamps. It is not an additional session mechanism. AuthResponse.expiresIn uses the configured token lifetime.
+
+Environment configuration and keys
+
+JWT_SECRET must decode from base64 into at least 32 bytes for HS256. Generate a new random key locally with:
+
+openssl rand -base64 32
+
+Keep that output in your local environment or deployment secret storage. The example environment file contains no real key. Missing or invalid settings fail startup, invalid-key errors avoid echoing key material, and JwtProperties.toString() redacts the secret. The environment names are JWT_SECRET, JWT_ISSUER, JWT_AUDIENCE, JWT_EXPIRATION, and JWT_CLOCK_SKEW. Existing local environment values are preserved; update them deliberately if you want the new defaults.
+
+The implementation uses one shared signing key. Rotation means generating a replacement, updating every instance consistently, and restarting all instances together. That invalidates every old token and forces login again. It does not provide overlapping keys, JWKS discovery, or a managed identity provider. Those remain future options if the deployment requires seamless rotation.
+
+Logout and account changes
+
+POST /api/v1/auth/logout requires the current bearer token and returns 204. It increments token_version in the database, invalidating all previously issued tokens for that user across devices. It is an all-sessions logout, rather than revocation of just one jti. Clients should discard their token after logout. An already revoked token cannot be reused to authorize another logout.
+
+The decoder checks database user existence, enabled state, and token-version equality whenever it validates a bearer token, including on routes that do not call TaskService. Deleted, disabled, or revoked identities fail with 401. Role changes and enabled-state changes through AppUser setters advance token_version, invalidating older tokens. Direct database administration must preserve that revocation policy rather than silently changing security-sensitive state.
+
+There is no server HTTP session, but token acceptance now depends on database state; this is not a purely stateless token system. Logout atomically increments both token_version and row_version. AppUser's JPA @Version uses row_version for optimistic locking, preventing a previously loaded stale user update from overwriting the revocation. Concurrent operations can fail and require reloading instead of undoing logout.
+
+Try logout after obtaining a fresh login token:
+
+export TASKFLOW_TOKEN='paste-the-returned-token-here'
+curl -i -X POST http://localhost:8080/api/v1/auth/logout -H "Authorization: Bearer $TASKFLOW_TOKEN"
+curl -i http://localhost:8080/api/v1/tasks -H "Authorization: Bearer $TASKFLOW_TOKEN"
+
+Expect 204 followed by 401. Log in again for a new valid token. No refresh endpoint exists; expiration also requires login again.
+
+Database migration
+
+Flyway V6 adds enabled=true, token_version=0, and row_version=0 to existing users. The columns are non-null and token versions cannot be negative. IDs, password hashes, roles, task rows, and ownership are preserved. V5's NOT VALID ownership constraint still preserves historical unassigned tasks while rejecting new or updated unowned tasks. Token changes do not claim or reveal that legacy data.
+
+Login and registration limits
+
+POST login and registration share a per-remote-IP budget of 30 requests per 60-second fixed window. Successes and failures consume the same budget. Excess requests return 429 with Retry-After. A bounded map holds at most 10,000 client windows; the filter ignores X-Forwarded-For so callers cannot select their own counter through that header.
+
+The limiter lives in one process and resets on restart. A proxy can make many clients share one remote address. Before scaling in the cloud, use an enforcing gateway or shared limiter with an explicit trusted-proxy policy. This local limiter is not a distributed Redis implementation. General test-profile requests disable it to keep unrelated tests independent; dedicated rate-limit tests enable and exercise it explicitly.
+
+Browser transport and verification
+
+Tokens are supplied through Authorization: Bearer, not authentication cookies. CSRF is disabled for this explicit header-based transport. Development Swagger uses the API's own origin. No cross-origin browser allowlist is configured; a future browser frontend needs an explicit CORS policy, without wildcard origins combined with credentials.
+
+JwtConfig, JwtProperties, TokenService, AccessTokenValidator, JwtTokenIdentity, AuthenticatedUser, CurrentUserService, AuthService, AppUser, UserRepository, SecurityConfig, the rate-limit filter, V6, and environment examples carry the change. Tests check real token issuance, invalid claims/signatures/times/roles, login identity races, logout and account revocation, stale updates, key replacement, configuration validation/redaction, migration preservation, and request limiting.
+
+Verification on 23 October 2026: ./mvnw clean test passed 227 tests with zero failures, zero errors, and zero skipped. The suite uses real PostgreSQL Testcontainers, including the production configuration and upgrade-migration checks. git diff --check also passed. Stage 16 is complete; Stage 17 will refactor optional task filters into JPA specifications without changing the API contract.
+
+Exercises: compare sub before and after this stage; use two login tokens and show one logout invalidates both; explain why row_version differs from token_version; describe why one signing-key replacement affects every user.

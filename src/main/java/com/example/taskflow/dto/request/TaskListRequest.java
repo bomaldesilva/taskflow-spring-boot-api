@@ -9,7 +9,6 @@ import org.springframework.data.domain.Sort;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 
 public record TaskListRequest(
@@ -46,17 +45,6 @@ public record TaskListRequest(
 
     public Pageable pageable() {
         return PageRequest.of(page, size, parseSort(sort));
-    }
-
-    public String titlePattern() {
-        if (title == null) {
-            return null;
-        }
-        // Escape SQL LIKE metacharacters so a title is a literal substring.
-        return "%" + title.toLowerCase(Locale.ROOT)
-                .replace("!", "!!")
-                .replace("%", "!%")
-                .replace("_", "!_") + "%";
     }
 
     private static Sort parseSort(List<String> parameters) {

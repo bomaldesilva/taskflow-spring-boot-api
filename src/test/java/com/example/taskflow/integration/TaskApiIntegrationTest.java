@@ -1,6 +1,9 @@
 package com.example.taskflow.integration;
 
+import com.example.taskflow.model.AppUser;
+import com.example.taskflow.model.Role;
 import com.example.taskflow.repository.TaskRepository;
+import com.example.taskflow.repository.UserRepository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -47,9 +50,18 @@ class TaskApiIntegrationTest {
     @Autowired
     private TaskRepository taskRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @BeforeEach
     void cleanDatabase() {
         taskRepository.deleteAll();
+        userRepository.deleteAll();
+        AppUser user = new AppUser();
+        user.setUsername("testuser");
+        user.setPassword("not-a-real-password-hash");
+        user.setRole(Role.USER);
+        userRepository.saveAndFlush(user);
     }
     @Test
     void shouldCreateTask() throws Exception {

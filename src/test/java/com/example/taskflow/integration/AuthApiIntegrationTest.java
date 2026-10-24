@@ -24,6 +24,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -176,10 +177,14 @@ class AuthApiIntegrationTest {
         Jwt jwt = jwtDecoder.decode(token);
         assertEquals("HS256", jwt.getHeaders().get("alg"));
         assertEquals("taskflow", jwt.getClaimAsString("iss"));
-        assertEquals("testuser", jwt.getSubject());
+        assertEquals(userRepository.findByUsername("testuser").orElseThrow().getId().toString(), jwt.getSubject());
+        assertEquals(List.of("taskflow-api"), jwt.getAudience());
         assertEquals(List.of("USER"), jwt.getClaimAsStringList("roles"));
         assertNotNull(jwt.getIssuedAt());
+        assertEquals(jwt.getIssuedAt(), jwt.getNotBefore());
         assertNotNull(jwt.getExpiresAt());
+        assertDoesNotThrow(() -> UUID.fromString(jwt.getId()));
+        assertEquals(0, ((Number) jwt.getClaim("ver")).longValue());
         assertEquals(1800, Duration.between(jwt.getIssuedAt(), jwt.getExpiresAt()).toSeconds());
     }
 

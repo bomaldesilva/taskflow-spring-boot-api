@@ -97,11 +97,11 @@ class TaskOwnerRelationshipIntegrationTest {
 
             assertFalse(Hibernate.isInitialized(firstReloaded.getOwner()));
             assertFalse(Hibernate.isInitialized(secondReloaded.getOwner()));
-            assertEquals("relationship-owner", firstReloaded.getOwner().getUsername());
+            assertEquals("testuser", firstReloaded.getOwner().getUsername());
             assertTrue(Hibernate.isInitialized(firstReloaded.getOwner()));
             assertEquals(owner.getId(), firstReloaded.getOwner().getId());
             assertEquals(owner.getId(), secondReloaded.getOwner().getId());
-            assertEquals("relationship-owner", secondReloaded.getOwner().getUsername());
+            assertEquals("testuser", secondReloaded.getOwner().getUsername());
         });
 
         assertEquals(2, taskRepository.count());
@@ -198,23 +198,27 @@ class TaskOwnerRelationshipIntegrationTest {
                 .andExpect(taskDtoAt("$"))
                 .andExpect(jsonPath("$.status").value("COMPLETED"));
 
-        mockMvc.perform(post("/api/v1/tasks")
+        String createdTaskResponse = mockMvc.perform(post("/api/v1/tasks")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
-                                {"title":"API-created task","description":"Still a DTO","priority":2}
+                                {"title":"API-created task","description":"Server assigns owner","priority":2}
                                 """))
                 .andExpect(status().isCreated())
-                .andExpect(taskDtoAt("$"));
+                .andExpect(taskDtoAt("$"))
+                .andReturn().getResponse().getContentAsString();
+        Number createdTaskId = JsonPath.read(createdTaskResponse, "$.id");
 
         transactions.executeWithoutResult(transaction -> {
             Task updatedTask = entityManager.find(Task.class, task.getId());
             assertEquals(owner.getId(), updatedTask.getOwner().getId());
+            Task createdTask = entityManager.find(Task.class, createdTaskId.longValue());
+            assertEquals(owner.getId(), createdTask.getOwner().getId());
         });
     }
 
     private AppUser saveOwner() {
         AppUser owner = new AppUser();
-        owner.setUsername("relationship-owner");
+        owner.setUsername("testuser");
         owner.setPassword("not-a-real-password-hash");
         owner.setRole(Role.USER);
         return userRepository.saveAndFlush(owner);

@@ -2,6 +2,7 @@ package com.example.taskflow.services;
 
 import com.example.taskflow.model.AppUser;
 import com.example.taskflow.repository.UserRepository;
+import com.example.taskflow.security.AuthenticatedUser;
 
 import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Service;
@@ -33,10 +34,6 @@ public class CustomUserDetailsService
                                         )
                         );
 
-        return User
-                .withUsername(user.getUsername())
-                .password(user.getPassword())
-                .roles(user.getRole().name())
-                .build();
+        return new AuthenticatedUser(user);
     }
 }

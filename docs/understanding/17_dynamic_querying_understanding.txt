@@ -1,0 +1,65 @@
+TASKFLOW STAGE 17: DYNAMIC QUERYING
+
+Purpose
+
+TaskFlow already supports several optional filters. As filters grow, writing a separate repository method for every combination becomes difficult to maintain. Stage 17 expresses each condition as a reusable JPA specification and combines the conditions for a request. The public API, database schema, ownership policy, and page response remain unchanged.
+
+A specification describes a database condition
+
+A JPA Specification<Task> builds a predicate through the Criteria API. A predicate is a condition that each matching row must satisfy. For example, withStatus(TODO) describes task.status = TODO. withPriority(5) describes an exact priority match. These conditions become part of the database query; they do not filter a complete task list after loading it into memory.
+
+TaskSpecifications.matching(ownerId, status, priority, title) starts with ownedBy(ownerId) and combines the optional conditions with AND. A useful mental example is: owned by Alice AND status is TODO AND priority is 5 AND title contains spring. A task must satisfy every active condition. Supplying fewer filters removes optional conditions, rather than changing AND into OR.
+
+Optional is different from missing ownership
+
+Null status, priority, or title means that optional filter does not restrict the result. In particular, a missing priority filter does not mean priority IS NULL. It includes both assigned and null priorities, subject to owner and any other filters.
+
+Owner scope is required. The current persisted user supplies ownerId; the client cannot choose it in the query. Missing owner information fails immediately instead of producing an unrestricted query. ownedBy is always part of matching(), even if every optional filter is absent. This preserves isolation for both USER and ADMIN. Legacy unassigned tasks continue to be hidden.
+
+The internal code change
+
+TaskRepository now extends JpaSpecificationExecutor<Task> alongside JpaRepository<Task, Long>. That adds operations such as findAll(specification, pageable). TaskService resolves the authenticated user, builds the specification, and passes it together with the validated Pageable. Spring Data executes the database query and creates the Page, after which existing mapping produces TaskPageResponse.
+
+The new TaskSpecifications class contains matching, matchingLegacyTitle, ownedBy, withStatus, withPriority, and withTitleContaining. The former findMatchingTasks JPQL method and derived status/title query methods are removed. ID-based operations retain findByIdAndOwnerId so lookups and mutations remain scoped to the owner.
+
+TaskListRequest remains responsible for API input validation, trimming the main route's title, and creating pagination/sort settings. Its internal titlePattern() method is removed. Database-specific LIKE pattern preparation now belongs in TaskSpecifications, where the title predicate is built. Keeping normalization and query construction in their respective layers makes future filters easier to add.
+
+Title matching and literal characters
+
+The main withTitleContaining predicate uses database LOWER(title) and a search value lowered with Locale.ROOT, preserving the main route's behavior. SQL LIKE treats % as any sequence and _ as one character. A shared private helper escapes ! first, then % and _. Both title predicates declare ! as the escape character. The helper surrounds the escaped term with % only to implement the intended substring search. Clients continue sending ordinary text; a title containing 100% is searched literally.
+
+Pagination and counts
+
+The content query and total count use the same specification, including the owner predicate. totalElements therefore counts only the current user's matching tasks. totalPages still derives from that count and requested size. Defaults remain page 0, size 20, and id descending; the maximum size remains 100. Explicit sorts retain their ID tie-breaker, so this refactor does not change the ordering contract.
+
+An empty result or out-of-range page behaves as before. Concurrent edits can still shift offset-based pages; specifications do not freeze the dataset. This stage improves query composition, rather than claiming a performance improvement without measurements. Query plans and indexes remain stage 19 work.
+
+Compatibility with older routes
+
+The deprecated status and title-search endpoints now delegate through the same specifications. They still return arrays of TaskResponse rather than page envelopes, and remain unbounded compatibility routes. Owner isolation applies to them too.
+
+Their existing title-input behavior is deliberately preserved. The main list route trims surrounding spaces, treats a blank title as no filter, and rejects a nonblank title longer than 100 characters. Legacy search keeps the raw title: spaces matter, an empty search matches all of that owner's tasks, and longer terms are accepted without the main list's length validation. Such terms normally have no matches, but database case conversion can expand text. New clients should use the paginated main route.
+
+matchingLegacyTitle shares ownedBy and literal escaping, but retains database UPPER(title) LIKE UPPER(pattern), as used by the old derived IgnoreCase query. Main matching retains its LOWER-based behavior. Unicode cases, including Greek σ and ς, can compare differently under these conversions. Keeping both paths is intentional compatibility, rather than treating every form of case-insensitive matching as identical.
+
+Try the unchanged API
+
+Obtain a fresh token using registration or login, then set:
+
+export TASKFLOW_TOKEN='paste-the-returned-token-here'
+
+curl -sS --get http://localhost:8080/api/v1/tasks -H "Authorization: Bearer $TASKFLOW_TOKEN" --data-urlencode 'status=TODO' --data-urlencode 'priority=5' --data-urlencode 'title= spring ' --data-urlencode 'size=2' --data-urlencode 'sort=priority,desc'
+
+curl -sS --get http://localhost:8080/api/v1/tasks -H "Authorization: Bearer $TASKFLOW_TOKEN" --data-urlencode 'title=100%'
+
+curl -sS --get http://localhost:8080/api/v1/tasks/search -H "Authorization: Bearer $TASKFLOW_TOKEN" --data-urlencode 'title='
+
+The first response uses items and page metadata; the last uses a legacy array. None includes another user's tasks.
+
+Verification and exercises
+
+Repository and PostgreSQL integration checks cover combined filters, literal characters, null optional filters, owner isolation, and matching page totals. Existing API tests protect response compatibility, sort behavior, and invalid input. Legacy route checks retain their separate raw-title and database case-conversion behavior.
+
+Verification on 24 October 2026: ./mvnw clean test passed 233 tests with zero failures, zero errors, and zero skipped. The suite includes real PostgreSQL Testcontainers, ownership and pagination checks, and legacy Unicode/raw-title compatibility regressions. git diff --check also passed. Stage 17 is complete; Stage 18 will introduce auditing timestamps with a migration/backfill policy.
+
+Exercises: trace one filtered request through the layers; explain why null priority differs from priority IS NULL; identify the essential owner predicate; compare an empty legacy search with the paginated default; add a hypothetical filter to the AND expression on paper. Date predicates wait until stage 18 introduces audited timestamps; this stage adds no date fields or migration.

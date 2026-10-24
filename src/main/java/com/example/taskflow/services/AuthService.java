@@ -5,9 +5,11 @@ import com.example.taskflow.exception.UsernameAlreadyExistsException;
 import com.example.taskflow.model.AppUser;
 import com.example.taskflow.model.Role;
 import com.example.taskflow.repository.UserRepository;
+import com.example.taskflow.security.AuthenticatedUser;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.hibernate.exception.ConstraintViolationException;
 
@@ -22,18 +24,21 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final TokenService tokenService;
+    private final CurrentUserService currentUserService;
 
     public AuthService(
             UserRepository userRepository,
             PasswordEncoder passwordEncoder,
             AuthenticationManager authenticationManager,
-            TokenService tokenService) {
+            TokenService tokenService,
+            CurrentUserService currentUserService) {
 
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager =
                 authenticationManager;
         this.tokenService = tokenService;
+        this.currentUserService = currentUserService;
     }
 
     @Transactional
@@ -74,19 +79,19 @@ public class AuthService {
     public AuthResponse login(
             LoginRequest request) {
 
-        authenticationManager.authenticate(
+        var authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.username(),
                         request.password()
                 )
         );
 
-        AppUser user =
-                userRepository
-                        .findByUsername(
-                                request.username()
-                        )
-                        .orElseThrow();
+        if (authentication == null || !authentication.isAuthenticated()
+                || !(authentication.getPrincipal() instanceof AuthenticatedUser identity)) {
+            throw new BadCredentialsException("The authenticated user is unavailable.");
+        }
+        AppUser user = userRepository.findById(identity.getUserId())
+                .orElseThrow(() -> new BadCredentialsException("The authenticated user is unavailable."));
 
         return tokenResponse(user);
     }
@@ -97,6 +102,14 @@ public class AuthService {
                 "Bearer",
                 tokenService.getExpirationSeconds()
         );
+    }
+
+    @Transactional
+    public void logout() {
+        AppUser user = currentUserService.requireUser();
+        if (userRepository.revokeTokens(user.getId(), user.getTokenVersion()) != 1) {
+            throw new BadCredentialsException("The authenticated user is unavailable.");
+        }
     }
 
     private boolean isUsernameConflict(DataIntegrityViolationException exception) {

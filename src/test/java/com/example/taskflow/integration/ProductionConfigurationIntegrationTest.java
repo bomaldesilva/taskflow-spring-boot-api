@@ -5,6 +5,7 @@ import com.example.taskflow.model.Role;
 import com.example.taskflow.model.Task;
 import com.example.taskflow.model.TaskStatus;
 import com.example.taskflow.repository.TaskRepository;
+import com.example.taskflow.repository.UserRepository;
 import com.example.taskflow.services.TokenService;
 import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,8 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.time.Duration;
+import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -53,6 +56,9 @@ class ProductionConfigurationIntegrationTest {
     private TaskRepository taskRepository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private TokenService tokenService;
 
     @Autowired
@@ -66,10 +72,17 @@ class ProductionConfigurationIntegrationTest {
         assertNotNull(flyway.info().current());
         assertEquals(0, flyway.info().pending().length);
 
+        AppUser owner = new AppUser();
+        owner.setUsername("production-smoke-owner");
+        owner.setPassword("not-a-real-password-hash");
+        owner.setRole(Role.USER);
+        owner = userRepository.saveAndFlush(owner);
+
         Task task = new Task();
         task.setTitle("Production configuration smoke test");
         task.setStatus(TaskStatus.TODO);
         task.setPriority(3);
+        task.setOwner(owner);
 
         Task savedTask = taskRepository.saveAndFlush(task);
 
@@ -81,15 +94,21 @@ class ProductionConfigurationIntegrationTest {
     void shouldIssueAndDecodeTokenWithProductionExpirationOverride() {
         AppUser user = new AppUser();
         user.setUsername("production-test-user");
+        user.setPassword("not-a-real-password-hash");
         user.setRole(Role.USER);
+        user = userRepository.saveAndFlush(user);
 
         Jwt token = jwtDecoder.decode(tokenService.generateToken(user));
 
-        assertEquals(user.getUsername(), token.getSubject());
+        assertEquals(user.getId().toString(), token.getSubject());
         assertEquals("taskflow", token.getClaimAsString("iss"));
+        assertEquals(List.of("taskflow-api"), token.getAudience());
         assertEquals("HS256", token.getHeaders().get("alg"));
         assertNotNull(token.getIssuedAt());
+        assertEquals(token.getIssuedAt(), token.getNotBefore());
         assertNotNull(token.getExpiresAt());
+        assertDoesNotThrow(() -> UUID.fromString(token.getId()));
+        assertEquals(0, ((Number) token.getClaim("ver")).longValue());
         assertEquals(1800, Duration.between(token.getIssuedAt(), token.getExpiresAt()).toSeconds());
     }
 }
